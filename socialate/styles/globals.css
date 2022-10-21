@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Inter, sans-serif;
+}
+
+h1{
+  text-align: center;
+}
+
+h3{
+  text-align: center;
 }
 
 a {
@@ -13,6 +21,156 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@media (min-width:320px) and (max-width:600px){
+
+  /* Inputs*/
+
+  input[type=text],  input[type=password] {
+
+  width:300px;
+  height: 50px;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+  border:2px solid #CECECE;
+  padding-left:1em;
+  }
+
+  input[type=submit]{
+    width:160px;
+    height: 50px;
+    display: block;
+    margin: 2em auto;
+    border-radius: 5px;
+    border:none;
+
+  }
+
+  input[type=text]:focus,  input[type=password]:focus{
+    outline: none;
+    border:2px solid #6b7ffc;
+  }
+
+  /*Header*/
+
+  header{
+    position: fixed;
+    top: 0;
+    width:100%;
+    height: 6em;
+    padding-bottom: 1em;
+    background-color:#303030;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /*Header first div block*/
+  header:first-child{
+    padding-left: 1.5em;
+  }
+
+  header:first-child h4{
+    font-size:1.6em;
+    margin: 0.5em 0 0;
+    line-height: 0;
+    font-weight: 400;
+  }
+
+  header:first-child h6{
+    font-size:0.8em;
+    font-weight: 300;
+    margin: 1.5em 0 0;
+    line-height: 0.6;
+  }
+  /*Header second div block*/
+
+  header div:last-of-type {
+    font-size:0.9em;
+    padding-right: 1.5em;
+    display: block;
+  }
+
+  header div:last-of-type p {
+    margin: 2px 0 0;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  header div:last-of-type div{
+    position: static;
+  }
+
+  header div:last-of-type div span{
+    padding:4px 6px 4px 5px;
+    border-radius: 100%;
+    position: relative;
+    font-size:0.8em;
+    left:48px;
+    background-color: #ff4e4e;
+    top:5px;
+  }
+
+  .icons{
+    position: relative;
+    left:10px;
+    align-self: auto;
+    justify-self: center;
+    display: block;
+    margin: 0 auto;
+    width:40px;
+  }
+
+  /*Footer*/
+
+  footer{
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    height: 6em;
+    background-color:#303030;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  
+  footer div{
+    position: static;
+    display: block;
+  }
+
+  footer section h4{
+    font-weight: 400;
+    text-align: center;
+    margin: 0%;
+  }
+
+
+  footer span {
+    display: block;
+    top:10px;
+    left:45px;
+    color: #ff4e4e;
+    border-radius: 100%;
+    position: relative;
+    font-size:0.8em;
+  }
+
+
+  .footer-icons{
+    font-size: 50px;
+    margin: 0;
+  }
+
 }
 
 @media (prefers-color-scheme: dark) {

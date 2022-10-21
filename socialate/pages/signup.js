@@ -1,18 +1,12 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
-export default function Home() {
+export default function SignUp() {
   return (
     <div className={styles.container}>
-    <Head>
-      <title>Socialates - your social app</title>
-      <link rel="shortcut icon" href="images/favicon.png" />
-    </Head>
       <h1>Socialates</h1>
       <h3>Stay Social</h3>
-      <h2>Login</h2>
+      <h2>Sign Up</h2>
       <main className={styles.main}>
         <form>
           <label for = "username">Username</label>
@@ -20,9 +14,8 @@ export default function Home() {
           <label for = "password">Password</label>
           <input type="password" required name = "password" id ="password" placeholder='●●●●●'></input>
           <input type ="submit" value = "Login"></input>
-          <p>Don't have an account? <Link href = "/signup">Sign up!</Link></p>
-        </form>
-         
+          <p>Have an account? <Link href = "/">Login!</Link></p>
+        </form> 
       </main>
 
     </div>

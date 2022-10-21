@@ -1,4 +1,4 @@
 # Socialates
 
-This is social-media web application. MERN tech stack.
+This is a social-media web application. The stack consists: of Node, Express, Next.js, MongoDb
 
