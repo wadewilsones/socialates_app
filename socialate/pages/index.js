@@ -15,10 +15,10 @@ export default function Home() {
       <h2>Login</h2>
       <main className={styles.main}>
         <form>
-          <label for = "username">Username</label>
-          <input type="text" required placeholder='Type here...' name = "username" id ="username"></input>
-          <label for = "password">Password</label>
-          <input type="password" required name = "password" id ="password" placeholder='●●●●●'></input>
+          <label htmlFor = "username">Username</label>
+          <input type="text" required placeholder='Type here...' name = "username" id ="username"  autoComplete='true'></input>
+          <label htmlFor = "password">Password</label>
+          <input type="password" required name = "password" id ="password" placeholder='●●●●●'  autoComplete='true'></input>
           <input type ="submit" value = "Login"></input>
           <p>Don't have an account? <Link href = "/signup">Sign up!</Link></p>
         </form>
