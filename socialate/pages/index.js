@@ -1,9 +1,37 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+//import { baseConvert }  from '../validation/isValid'
 
 export default function Home() {
+
+  // Send data
+  const log = (event) => {
+    event.preventDefault();
+    // convert to base64
+    let password = Buffer.from(event.target.password.value, "utf8");
+    password = password.toString("base64");
+
+    const user = {
+        username:event.target.username.value,
+        password:password
+    }
+
+    fetch('api/auth', {
+      method:'POST',
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        username:user.username,
+        password:user.password,
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
+
+
   return (
     <div className={styles.container}>
     <Head>
@@ -14,7 +42,7 @@ export default function Home() {
       <h3>Stay Social</h3>
       <h2>Login</h2>
       <main className={styles.main}>
-        <form>
+        <form onSubmit={log}>
           <label htmlFor = "username">Username</label>
           <input type="text" required placeholder='Type here...' name = "username" id ="username"  autoComplete='true'></input>
           <label htmlFor = "password">Password</label>

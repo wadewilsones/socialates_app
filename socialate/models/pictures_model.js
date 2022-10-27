@@ -2,10 +2,10 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const pictureSchema = new Schema({
+const PictureSchema = new Schema({
     author: {type:mongoose.Types.ObjectId, required:true},
     content: {type:Buffer, required:true},
     date_created: {type:Date, required:true}
 })
 
-module.exports = mongoose.model('pictureSchema', pictureSchema);
+module.exports = mongoose.model('PictureSchema', PictureSchema);

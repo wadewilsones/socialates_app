@@ -1,12 +1,17 @@
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import Head from 'next/head'
-import { useState, useEffect } from "react";
-import isValid, { validatePassword, validateName } from '../validation/isValid'
+import { useState } from "react";
+import { useRouter } from 'next/router'
+import { validatePassword, validateName } from '../validation/isValid'
+import { redirect } from 'next/dist/server/api-utils';
+
+
 
 export default function SignUp() {
 
   const [errors, setErrors] = useState([]);
+  const router = useRouter();
 
   //Process registration
   const registerUser = async (e) => {
@@ -26,11 +31,12 @@ export default function SignUp() {
     const validationLast_Name = validateName(last_name);
 
     if(validation && validationFirst_Name && validationLast_Name){
-      password = Buffer.from(password, "utf8");
-      password = password.toString("base64");
+  
+      password = Buffer.from(password, "utf8"); // add to separate file
+      password = password.toString("base64"); // add to separate file
+
       //Fetch API
-      //Post data
-      const registration = await fetch ('/api/register', {
+       fetch ('/api/register', {
           method: 'POST',
           headers: {
             'Content-Type':'application/json'
@@ -44,6 +50,9 @@ export default function SignUp() {
       })
       .then((res) => res.text())
       .then(data => console.log(data))
+
+      //Redirect to Login and give a message successful registration
+      router.push('/');
       
     }
 

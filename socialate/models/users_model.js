@@ -1,8 +1,8 @@
 //Model for users
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     username: {type:String, required:true},
     password: {type:String, required:true},
     first_name: {type:String, required:true},
@@ -15,4 +15,4 @@ const userSchema = new Schema({
     friends: [mongoose.Types.ObjectId]
 })
 
-module.exports = mongoose.model('userSchema', userSchema);
+module.exports =  mongoose.models.UserSchema || mongoose.model('UserSchema', UserSchema);
