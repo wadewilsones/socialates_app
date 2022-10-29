@@ -5,6 +5,9 @@ import styles from "../../styles/Profile.module.css";
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SchoolIcon from '@mui/icons-material/School';
 import InfoIcon from '@mui/icons-material/Info';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+
 
 const Profile = () => {
     const router = useRouter();
@@ -50,6 +53,33 @@ const Profile = () => {
                         <input type="file" id='uploadImage' hidden/>
                         <img src='/images/uploadPic.svg' />
                     </label>
+                </div>
+
+            </section>
+
+            <section className={styles.postsWall}>
+
+                <div className = {styles.singlePost}>
+                    <div className = {styles.postHeader}>
+                        <img src='https://cdn.pixabay.com/photo/2018/02/25/16/05/view-3180958_960_720.jpg' className={styles.userThumbnailPic}/>
+                        <div className = {styles.post_UserData}>
+                            <h5>Jhon Doe</h5>
+                            <p>Sep 12 at 4:15pm</p>
+                        </div>
+                    </div>
+
+                    <div className = {styles.postDescription}>
+                        <p>Some random text from the database.</p>
+                    </div>
+
+                    <div className = {styles.postPicture}>
+                        <img src='https://cdn.pixabay.com/photo/2019/01/23/11/07/animation-3950055_960_720.jpg' alt = 'from db'></img>
+                    </div>
+
+                    <div className = {styles.postInteraction}>
+                      <div className = {styles.actionContainer}><FavoriteIcon  className = {styles.Likes}></FavoriteIcon> 15</div>
+                      <div  className = {styles.actionContainer}><ModeCommentIcon  className = {styles.Comments}></ModeCommentIcon> 23</div>
+                    </div>
                 </div>
 
             </section>
