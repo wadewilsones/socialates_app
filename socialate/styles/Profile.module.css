@@ -19,21 +19,20 @@
     .UserMainInfo h3{
 
         text-align: left;
-        margin-left: 1em;
+        margin-left: 0.7em;
         font-weight: 400;
-        font-size: 1.4em;
-        margin-top: 0.5em;
+        font-size: 1.9em;
+        margin-top: 0.4em;
         margin-bottom: 0;
     }
 
     /*User Status*/
     .UserMainInfo h6{
-        margin-top: 0.7em;
+        margin-top: 0.4em;
         margin-left: 1.5em;
         font-size: 1em;
         color: #9B9B9B;
         font-weight: 400;
-        padding-bottom: 2em;
     }
 
     /*Online/offline*/
@@ -51,4 +50,141 @@
     #status p{
         color: black;
     }
+
+
+    /*CONTACT INFO BLOCK - PHONE*/
+
+    .ContactInfo{
+        background-color: #ffffff;
+        border-radius: 5px;
+        width:96%;
+        padding: 1em 0;
+        margin: auto;
+        margin-bottom:1em;
+    }
+
+    .ContactInfo h3{
+        text-align: left;
+        margin-left: 0.7em;
+        font-weight: 400;
+        font-size: 1.3em;
+        margin-top: 0.4em;
+        margin-bottom: 0.9em;
+    }
+    .ContactInfo ul {
+
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ContactInfo ul li{
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 2;
+        display: flex;
+        align-items: center;
+        color: #2c2c2c;
+    }
+
+    .contactIcons{
+        margin: 0;
+        padding-right: 0.2em;
+       color:#797979;
+       font-size:2em;
+    }
+
+    .ContactInfo a{
+        margin-top: 1em;
+        margin-left: 1em;
+        color: #638FFF;
+        display: flex;
+        align-items:center;
+    }
+
+    #contactIconsInfo{
+        margin-right: 0.2em;
+    }
+
+    /*PHOTOS BLOCK - PHONE*/
+
+    .Photos{
+        margin-top: 2em;
+        background-color: #ffffff;
+        border-radius: 5px;
+        width:96%;
+        padding: 1em 0;
+        margin: auto;
+        margin-bottom: 1em;
+    }
+
+    .Photos h3{
+        text-align: left;
+        margin-left: 0.7em;
+        font-weight: 400;
+        font-size: 1.3em;
+        margin-top: 0.4em;
+        margin-bottom: 0.9em;
+    }
+
+    .Photos div {
+     display: flex;
+     overflow: scroll;
+    }
+
+    .Photos div img:first-of-type{
+        margin-left: 0.9em;
+    }
+
+    .Photos div img{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 0.5em;
+    }
+
+    
+    /*CREATE POST BLOCK - PHONE*/
+
+    .CreatePost{
+        margin-top: 2em;
+        background-color: #ffffff;
+        border-radius: 5px;
+        width:96%;
+        padding: 1em 0;
+        margin: auto;
+    }
+
+    .CreatePost h3{
+        text-align: left;
+        margin-left: 0.7em;
+        font-weight: 400;
+        font-size: 1.3em;
+        margin-top: 0.4em;
+        margin-bottom: 0.9em;
+    }
+
+    .CreatePost div{
+        display: flex;
+        align-items: center;
+        
+    }
+
+    .CreatePost input[type="text"]{
+
+        background: #FFFFFF;
+        border: none;
+        box-shadow: 0px 1px 5px rgba(30, 28, 28, 0.363);
+        border-radius: 10px;
+        font-size: 1em;
+        color:#232222b8;
+        font-weight: 500;
+
+    }
+
+    .CreatePost input[type="text"]::placeholder{
+        color: #A3A3A3;
+    }
+
 }
