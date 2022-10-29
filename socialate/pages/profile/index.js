@@ -10,7 +10,6 @@ const DeafultProfile = () => {
             <title>Socialates - profile</title>
         </Head>
              <Header></Header>
-            <h2>This is profile for a guy</h2>
             <Footer></Footer>
         </div>
     )

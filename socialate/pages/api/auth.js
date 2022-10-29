@@ -1,8 +1,8 @@
 // Authentication with JWS tokens
-import * as jose from 'jose';
 import UserSchema from '../../models/users_model'
 import MongoConnect from '../../utils/mongoConnect';
 import bcrypt from 'bcrypt';
+import { CreateTokens} from '../../utils/jwt';
 
 export default async function auth (req, res) {
 
@@ -14,7 +14,7 @@ export default async function auth (req, res) {
         const userExists = await UserSchema.findOne({ username: username }).exec();
         if(!userExists) {
             console.log('Not found')
-            res.status(400).json({err: "User doesn't exists"});
+            res.status(400).json({"err": "User doesn't exists"});
         }
         else
         {
@@ -22,7 +22,9 @@ export default async function auth (req, res) {
             const dbPassword = userExists.password;
             const isMatch = await bcrypt.compare(password, dbPassword);
             if(isMatch){
-                res.send({message:'Welcome'})
+                //Create a JWS and pass to cookie
+                const accessToken = CreateTokens(userExists);
+                res.json({"isLogged":true, "accessToken":accessToken, "id":userExists._id});
             }
             else{
                 res.json({err:"Wrong Password"})

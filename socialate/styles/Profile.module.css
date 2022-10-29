@@ -1,0 +1,54 @@
+
+@media screen and  (min-width:320px) and (max-width:500px){
+    
+    .UserMainInfo{
+        width:100%;
+        margin-top: 5em;
+        padding: 0;
+        background-color: #FAFAFA;
+
+    }
+    
+    /*User Picture*/
+    .UserMainInfo img{
+        width:100%;
+        margin: 0;
+        padding: 0;
+    }
+    /*User Name*/
+    .UserMainInfo h3{
+
+        text-align: left;
+        margin-left: 1em;
+        font-weight: 400;
+        font-size: 1.4em;
+        margin-top: 0.5em;
+        margin-bottom: 0;
+    }
+
+    /*User Status*/
+    .UserMainInfo h6{
+        margin-top: 0.7em;
+        margin-left: 1.5em;
+        font-size: 1em;
+        color: #9B9B9B;
+        font-weight: 400;
+        padding-bottom: 2em;
+    }
+
+    /*Online/offline*/
+    .container svg circle {
+        fill:rgb(29, 253, 111);
+    }
+
+    #status{
+
+        height: 40px;
+        margin: 0;
+        display: flex;
+    }
+
+    #status p{
+        color: black;
+    }
+}

@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import { getCookies, setCookie, deleteCookie } from 'cookies-next';
 //import { baseConvert }  from '../validation/isValid'
+import { useRouter } from 'next/router'
+
 
 export default function Home() {
 
+  const router = useRouter();
   // Send data
   const log = (event) => {
     event.preventDefault();
@@ -28,7 +32,15 @@ export default function Home() {
       })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if(data.isLogged){
+        setCookie('token', data.accessToken)  // Change to header authorization
+        setCookie('user', data.id);
+        //Redirect to profile
+        router.push(`profile/${data.id}`)
+      } 
+      
+    })
   }
 
 
