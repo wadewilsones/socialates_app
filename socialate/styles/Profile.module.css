@@ -106,6 +106,57 @@
         margin-right: 0.2em;
     }
 
+    /*FRIENDS BLOCK - PHONE*/
+    .Friends{
+        margin-top: 2em;
+        background-color: #ffffff;
+        border-radius: 5px;
+        width:96%;
+        padding: 1em 0;
+        margin: auto;
+        margin-bottom: 1em;
+    }
+
+    .Friends h3{
+        text-align: left;
+        margin-left: 0.7em;
+        font-weight: 400;
+        font-size: 1.3em;
+        margin-top: 0.4em;
+        margin-bottom: 0.9em;
+    }
+
+    #FriendsContainer {
+
+        padding: 0 0 0 1em;
+        display: flex;
+        align-items: center;
+      
+    }
+
+    .SingleFriend{
+        overflow-wrap: break-word;
+        width:100px;
+        margin-right: 1em;
+
+    }
+
+   .SingleFriend img{
+        width:70px;
+        margin: 0 auto;
+        display: block;
+        height: 70px;
+        border-radius: 60px;
+        object-fit: cover;
+    }
+
+    .SingleFriend p {
+        display: block;
+        margin: 0.5em auto 0;
+        text-align: center;
+    }
+
+
     /*PHOTOS BLOCK - PHONE*/
 
     .Photos{

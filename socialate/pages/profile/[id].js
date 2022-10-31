@@ -36,6 +36,22 @@ const Profile = () => {
                 <a><InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show more information</span></a>
             </section>
 
+            <section  className={styles.Friends}>
+                <h3>Friends <span>2</span></h3>
+                <div id = {styles.FriendsContainer}>
+                    <div className = {styles.SingleFriend}>
+                        <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
+                        <p>Vlada Haranina</p>
+                    </div>
+                    <div className = {styles.SingleFriend}>
+                        <img src='https://cdn.pixabay.com/photo/2018/01/06/09/25/hijab-3064633_960_720.jpg'></img>
+                        <p>Suzanna Kirch</p>
+                    </div>
+                </div>
+
+            </section>
+
+
             <section  className={styles.Photos}>
                 <h3>Photos <span>120</span></h3>
                 <div>
