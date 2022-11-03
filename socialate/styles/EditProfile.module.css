@@ -1,0 +1,100 @@
+@media screen and  (min-width:320px) and (max-width:500px){
+
+    .editProfileContainer{
+        margin-top:12em;
+        margin-bottom: 10em;
+    }
+
+    .editProfileContainer h1{
+        font-weight: 300;
+    }
+
+    .editProfileContainer form{
+        width:90%;
+        margin: auto;
+    }
+
+    .editProfileContainer form label{
+        line-height: 2;
+        margin-left: 1.3em;
+    }
+
+    .GenderContainer p{
+        line-height: 1;
+        margin-left: 1.2em;
+    }
+
+    .editProfileContainer form input[type="text"]{
+        display: block;
+        width:90%;
+        border:none;
+        font-family: Roboto;
+        font-size: 1em;
+        border-radius: 10px;
+        box-shadow: rgba(134, 129, 129, 0.388) 1px 1px 10px;
+    }
+
+    .editProfileContainer form input[type="radio"]{
+        border:2px solid red;
+    }
+
+    /*Profile Picture*/
+
+    #UpdatePictureLabel{
+        display: block;
+        text-align: center;
+        margin: 1em auto;
+        background-color: rgb(35, 35, 35);
+        padding: 0.5em 0;
+        width:60%;
+        border-radius: 10px;
+        color: aliceblue;
+    }
+
+    .editProfileContainer input[type="file"]{
+        border:2px solid red;
+        display: none;
+    }
+
+     #user_pic{
+        width:200px;
+        height: 200px;
+        object-fit: cover;
+        margin: auto;
+        display: block;
+        border-radius: 170px;
+
+    }
+
+    /*BOD*/
+    #bodLabel{
+        display: block;
+        margin-top: 1em;
+        margin-bottom:0.6em;
+    }
+    .editProfileContainer input[type="date"]{
+        display: block;
+        border:none;
+        padding: 10px 20px 10px 10px;
+        font-family: Roboto;
+        font-size: 1em;
+        margin-left:1.2em;
+        border-radius: 10px;
+        box-shadow: rgba(134, 129, 129, 0.388) 1px 1px 10px;
+    }
+
+    /*BOD*/
+    .editProfileContainer select{
+        display: block;
+        border:none;
+        width:200px;
+        padding: 10px 30px 10px 10px;
+        font-family: Roboto;
+        font-size: 1em;
+        margin-left:1.2em;
+        border-radius: 10px;
+        box-shadow: rgba(134, 129, 129, 0.388) 1px 1px 10px;
+    }
+
+
+}

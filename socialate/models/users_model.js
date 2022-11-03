@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     first_name: {type:String, required:true},
     last_name: {type:String, required:true},
     profile_pic: mongoose.Types.ObjectId,
+    gender:String,
     status:String,
     country:String,
     city:String,

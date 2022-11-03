@@ -110,7 +110,7 @@ const Profile = () => {
                     : 
                     <div className = {styles.noFriends}>
                         <p>No Contact Info</p>
-                    <button>Add Contact Info</button>
+                    <button onClick={() => {router.push(`${id}/editProfile`)}}>Add Contact Info</button>
                 </div>
                 }
                
@@ -118,7 +118,7 @@ const Profile = () => {
 
             <section  className={styles.Friends}>
                 <h3>Friends <span>{user.friends? '3' : ''}</span></h3>
-                {user.friends ?  
+                {user.friends != '' ?  
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
@@ -133,13 +133,11 @@ const Profile = () => {
                     <p>You have no friends</p>
                     <button>Find friends</button>
                 </div>}
-               
-
             </section>
 
 
             <section  className={styles.Photos}>
-                <h3>Photos <span>120</span></h3>
+                <h3>Photos <span>12</span></h3>
                 <div>
                     <img src='https://cdn.pixabay.com/photo/2022/10/01/22/38/sugarloaf-rock-7492389_960_720.jpg'></img>
                     <img src='https://cdn.pixabay.com/photo/2022/10/09/04/28/deer-7508187_960_720.jpg'></img>
