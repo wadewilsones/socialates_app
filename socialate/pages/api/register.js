@@ -18,6 +18,14 @@ export default async function register (req, res) {
         password: newPassword,
         first_name: req.body.first_name,
         last_name:  req.body.last_name,
+        profile_pic:null,
+        status:null,
+        country:null,
+        city:null,
+        dob:null,
+        marital_status:null,
+        is_Online:null,
+        friends: null
     }
 
     try {

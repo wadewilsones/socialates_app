@@ -45,11 +45,11 @@ const Profile = () => {
                     last_name:data.user.last_name,
                     profile_pic: data.user.profile_pic,
                     status:data.user.status,
-                    country:data.user.status,
-                    education:data.user.status,
-                    city:data.user.status,
-                    dob:data.user.status,
-                    marital_status:data.user.status,
+                    country:data.user.country,
+                    education:data.user.education,
+                    city:data.user.city,
+                    dob:data.user.dob,
+                    marital_status:data.user.marital,
                     is_Online:'True',
                     is_userProfile:'True',
                     friends:data.user.friends
@@ -61,6 +61,28 @@ const Profile = () => {
         }
 
     }, [router.isReady])
+
+    //Handle status change
+
+    const HandleStatus = (e) => {
+        if(e.key == 'Enter'){
+            console.log(e.target.value)
+            //Add new Status and update State
+            setUser((user) => ({
+                ...user,
+                status:e.target.value
+            }))
+            fetch(`/api/profile/${id}/changeStatus`, {
+                method:'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    status:e.target.value
+                })
+            })
+        }
+    }
  
 
     return <div className={styles.container}>
@@ -74,7 +96,7 @@ const Profile = () => {
                     <p>{user.is_Online == "False"? "Offline" : "Online"}</p>
                 </div>
                 <h3>{user.first_name} {user.last_name}</h3>
-                <input type="text" placeholder={user.status ? user.status : "Type your status here..."} id = {styles.statusInput}/>
+                <input type="text" placeholder={user.status ? user.status : "Type your status here..."} id = {styles.statusInput} onKeyPress = {HandleStatus}/>
             </section>
 
             <section className={styles.ContactInfo}>
