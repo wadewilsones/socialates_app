@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'; // tp get access to parameter in url
 import Footer from "../../components/footer";
+import { useEffect, useState } from 'react';
 import Header from "../../components/header";
 import styles from "../../styles/Profile.module.css";
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -9,35 +10,93 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 
+
 const Profile = () => {
+
     const router = useRouter();
     const { id } = router.query;
+
+    const [user, setUser] = useState({
+        first_name: "", 
+        last_name:"",
+        profile_pic: "",
+        status:"Some meaningful status",
+        country:"",
+        education:"",
+        city:"",
+        dob:"",
+        marital_status:"",
+        is_Online:'False',
+        friends:""
+    });
+
+    useEffect(() => {
+        if(!router.isReady){
+            return
+        }
+        else{
+            fetch(`/api/profile/${id}`, {
+                method:'GET'
+            })
+            .then(res => res.json())
+            .then((data) => {
+                const updatedUserData = {
+                    first_name: data.user.first_name, 
+                    last_name:data.user.last_name,
+                    profile_pic: data.user.profile_pic,
+                    status:data.user.status,
+                    country:data.user.status,
+                    education:data.user.status,
+                    city:data.user.status,
+                    dob:data.user.status,
+                    marital_status:data.user.status,
+                    is_Online:'True',
+                    is_userProfile:'True',
+                    friends:data.user.friends
+                }
+                setUser(() => ({
+                    ...updatedUserData
+                }))
+            })
+        }
+
+    }, [router.isReady])
+ 
+
     return <div className={styles.container}>
         <Header></Header>
             <section className={styles.UserMainInfo}>
-                <img src = "https://cdn.pixabay.com/photo/2018/01/21/14/16/woman-3096664_960_720.jpg"></img>
+                <img src = {user.profile_pic ? user.profile_pic : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}></img>
                 <div id = {styles.status}>
                     <svg viewBox="-6 -2 23 20" xmlns="http://www.w3.org/2000/svg" >
                         <circle cx="10" cy="11" r="3"/>
                     </svg>
-                    <p>Online</p>
+                    <p>{user.is_Online == "False"? "Offline" : "Online"}</p>
                 </div>
-                <h3>Christine Warner</h3>
-                <h6>Some meaningful status</h6>
+                <h3>{user.first_name} {user.last_name}</h3>
+                <input type="text" placeholder={user.status ? user.status : "Type your status here..."} id = {styles.statusInput}/>
             </section>
 
             <section className={styles.ContactInfo}>
             <h3>Contact Info</h3>
                 <ul>
-                    <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: Greensboro</span></li>
-                    <li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education: High School of Greensboro</span></li>
+                    {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
+                    {user.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {user.education}</span></li> : ''}
                 </ul>
-                
-                <a><InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show more information</span></a>
+                {(user.dob || user.marital_status) ?  
+                    <a><InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show more information</span></a>
+                    : 
+                    <div className = {styles.noFriends}>
+                        <p>No Contact Info</p>
+                    <button>Add Contact Info</button>
+                </div>
+                }
+               
             </section>
 
             <section  className={styles.Friends}>
-                <h3>Friends <span>2</span></h3>
+                <h3>Friends <span>{user.friends? '3' : ''}</span></h3>
+                {user.friends ?  
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
@@ -47,7 +106,12 @@ const Profile = () => {
                         <img src='https://cdn.pixabay.com/photo/2018/01/06/09/25/hijab-3064633_960_720.jpg'></img>
                         <p>Suzanna Kirch</p>
                     </div>
-                </div>
+                </div> : 
+                <div className = {styles.noFriends}>
+                    <p>You have no friends</p>
+                    <button>Find friends</button>
+                </div>}
+               
 
             </section>
 
@@ -65,7 +129,7 @@ const Profile = () => {
             <h3>Create a Post</h3>
                 <div>
                     <input type="text" placeholder="Got something to say?"></input>
-                    <label for ="uploadImage">
+                    <label htmlFor="uploadImage">
                         <input type="file" id='uploadImage' hidden/>
                         <img src='/images/uploadPic.svg' />
                     </label>
@@ -99,6 +163,8 @@ const Profile = () => {
                 </div>
 
             </section>
+
+            <Footer></Footer>
    
     </div>;
 }

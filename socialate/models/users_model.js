@@ -8,10 +8,12 @@ const UserSchema = new Schema({
     first_name: {type:String, required:true},
     last_name: {type:String, required:true},
     profile_pic: mongoose.Types.ObjectId,
+    status:String,
     country:String,
     city:String,
     dob:Date,
     marital_status:String,
+    is_Online:Boolean,
     friends: [mongoose.Types.ObjectId]
 })
 

@@ -1,12 +1,15 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import { useState } from "react";
 import { getCookies, setCookie, deleteCookie } from 'cookies-next';
 //import { baseConvert }  from '../validation/isValid'
 import { useRouter } from 'next/router'
 
 
 export default function Home() {
+
+  const [errors, setErrors] = useState('');
 
   const router = useRouter();
   // Send data
@@ -39,6 +42,10 @@ export default function Home() {
         //Redirect to profile
         router.push(`profile/${data.id}`)
       } 
+      else{
+        console.log(data)
+        setErrors(() => data.err)
+      }
       
     })
   }
@@ -53,6 +60,7 @@ export default function Home() {
       <h1>Socialates</h1>
       <h3>Stay Social</h3>
       <h2>Login</h2>
+      <p className={styles.errors}>{errors? errors : ''}</p>
       <main className={styles.main}>
         <form onSubmit={log}>
           <label htmlFor = "username">Username</label>

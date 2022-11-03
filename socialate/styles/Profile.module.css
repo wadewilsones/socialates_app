@@ -39,6 +39,7 @@
     .container svg circle {
         fill:rgb(29, 253, 111);
     }
+    
 
     #status{
 
@@ -47,9 +48,25 @@
         display: flex;
     }
 
+    
     #status p{
         color: black;
     }
+
+      
+    /*User text status*/
+
+    #statusInput{
+    
+        border:none!important;
+        background-color: #FAFAFA;
+        font-size: 1em;
+        margin-left:0.6em;
+        color:#979494;
+  
+    }
+  
+
 
 
     /*CONTACT INFO BLOCK - PHONE*/
@@ -156,6 +173,24 @@
         text-align: center;
     }
 
+    /*if no friends*/
+
+    .noFriends{
+        text-align: center;
+        color:#646464;
+        font-size: 1.3em;
+    }
+
+    .noFriends button{
+        width:160px;
+        height: 50px;
+        display: block;
+        margin: 2em auto;
+        border-radius: 5px;
+        border:none;
+        font-size: 0.8em;
+    }
+
 
     /*PHOTOS BLOCK - PHONE*/
 
@@ -219,8 +254,10 @@
 
     .CreatePost div{
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        
+        width:92%;
+        margin: auto;
     }
 
     .CreatePost input[type="text"]{
@@ -232,6 +269,7 @@
         font-size: 1em;
         color:#232222b8;
         font-weight: 500;
+        margin: 0;
 
     }
 
