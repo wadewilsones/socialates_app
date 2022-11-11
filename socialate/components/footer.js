@@ -1,8 +1,13 @@
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import HomeIcon from '@mui/icons-material/Home';
 import FeedIcon from '@mui/icons-material/Feed';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 
 const Footer = () => {
+
+
     return (        
         <footer>
             <section>
@@ -15,7 +20,7 @@ const Footer = () => {
             <section>
                     <div>
                         <span>0</span>
-                        <HomeIcon className = "footer-icons"></HomeIcon>
+                        <a href={`/profile/635ac84ec34e0bc1affa6976`}><HomeIcon className = "footer-icons"></HomeIcon></a>
                     </div>
                     <h4>Home</h4>
             </section>

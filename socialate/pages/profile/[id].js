@@ -15,17 +15,15 @@ const Profile = () => {
 
     const router = useRouter();
     const { id } = router.query;
+    
+    const [contactInfo, setContactInfo] = useState(null);
+    let [showInfo, setShowInfo] = useState(false);
 
     const [user, setUser] = useState({
         first_name: "", 
         last_name:"",
         profile_pic: "",
         status:"Some meaningful status",
-        country:"",
-        education:"",
-        city:"",
-        dob:"",
-        marital_status:"",
         is_Online:'False',
         friends:""
     });
@@ -40,22 +38,34 @@ const Profile = () => {
             })
             .then(res => res.json())
             .then((data) => {
-                const updatedUserData = {
+                let bDay;
+                //Convert date to other format
+                if(data.user.dob){
+                    const date = new Date(data.user.dob);
+                    console.log(date);
+                    const month = new Intl.DateTimeFormat('en-US', {month:'long'}).format(date)
+                    bDay = `${month} ${date.getDate()}`;
+                    console.log(bDay)
+                }
+
+                //Update contact information
+                setContactInfo(() => ({
+                    country:data.user.country,
+                    education:data.user.education,
+                    city:data.user.city,
+                    dob:bDay,
+                    marital_status:data.user.marital,
+                }))
+                //Update main information   
+                setUser((prevState) => ({
+                    ...prevState,
                     first_name: data.user.first_name, 
                     last_name:data.user.last_name,
                     profile_pic: data.user.profile_pic,
                     status:data.user.status,
-                    country:data.user.country,
-                    education:data.user.education,
-                    city:data.user.city,
-                    dob:data.user.dob,
-                    marital_status:data.user.marital,
                     is_Online:'True',
                     is_userProfile:'True',
                     friends:data.user.friends
-                }
-                setUser(() => ({
-                    ...updatedUserData
                 }))
             })
         }
@@ -83,7 +93,6 @@ const Profile = () => {
             })
         }
     }
- 
 
     return <div className={styles.container}>
         <Header></Header>
@@ -100,18 +109,37 @@ const Profile = () => {
             </section>
 
             <section className={styles.ContactInfo}>
-            <h3>Contact Info</h3>
-                <ul>
-                    {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
-                    {user.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {user.education}</span></li> : ''}
-                </ul>
-                {(user.dob || user.marital_status) ?  
-                    <a><InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show more information</span></a>
-                    : 
-                    <div className = {styles.noFriends}>
-                        <p>No Contact Info</p>
-                    <button onClick={() => {router.push(`${id}/editProfile`)}}>Add Contact Info</button>
+
+                <h3>Contact Info</h3>
+                {contactInfo != null ? 
+                <div className='ContactInfoExists'>
+                    <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Edit Contact Info</button>
+                    <ul>
+                        {contactInfo.gender ? <li>{contactInfo.gender}</li> : ""}
+                        {contactInfo.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {contactInfo.city}</span></li> : ''}
+                        {contactInfo.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {contactInfo.education}</span></li> : ''}
+
+                        {showInfo? <li>Birthday:{contactInfo.dob}</li>: ""}
+                        {showInfo? <li>Marital Status:{contactInfo.marital_status}</li>: ""}
+                        {showInfo? <li>Country:{contactInfo.country}</li>: ""}          
+                                              
+                        {contactInfo.dob || contactInfo.marital_status ?  
+                            <a onClick = {() => setShowInfo((prevState) => prevState? false : true)}>
+                                <InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show {showInfo? "less" : "more"} information</span>
+                            </a>
+
+                         : 
+                        ""}
+
+                    </ul>
                 </div>
+
+                :
+                
+                <div>
+                <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Add Contact Info</button>
+                </div>
+
                 }
                
             </section>
