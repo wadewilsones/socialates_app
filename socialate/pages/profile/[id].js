@@ -17,9 +17,7 @@ const Profile = () => {
     const router = useRouter();
     const { id } = router.query;
     
-    const [contactInfo, setContactInfo] = useState(null);
     let [showInfo, setShowInfo] = useState(false);
-
     const [user, setUser] = useState({
         first_name: "", 
         last_name:"",
@@ -49,14 +47,6 @@ const Profile = () => {
                     console.log(bDay)
                 }
 
-                //Update contact information
-                setContactInfo(() => ({
-                    country:data.user.country,
-                    education:data.user.education,
-                    city:data.user.city,
-                    dob:bDay,
-                    marital_status:data.user.marital,
-                }))
                 //Update main information   
                 setUser((prevState) => ({
                     ...prevState,
@@ -66,7 +56,13 @@ const Profile = () => {
                     status:data.user.status,
                     is_Online:'True',
                     is_userProfile:'True',
-                    friends:data.user.friends
+                    friends:data.user.friends,
+                    country:data.user.country,
+                    education:data.user.education,
+                    city:data.user.city,
+                    dob:bDay,
+                    marital_status:data.user.marital,
+
                 }))
             })
         }
@@ -112,21 +108,21 @@ const Profile = () => {
             <section className={styles.ContactInfo}>
 
                 <h3>Contact Info</h3>
-                {contactInfo != null ? 
+                {user != null ? 
                 <div className={styles.ContactInfoExists}>
                     <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
                     <ul>
-                        {contactInfo.gender ? <li>{contactInfo.gender}</li> : ""}
-                        {contactInfo.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {contactInfo.city}</span></li> : ''}
-                        {contactInfo.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {contactInfo.education}</span></li> : ''}
+                        {user.gender ? <li>{contactInfo.gender}</li> : ""}
+                        {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
+                        {user.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {user.education}</span></li> : ''}
 
-                        {(showInfo && contactInfo.dob)?
-                            <li><CakeIcon className = {styles.contactIcons}></CakeIcon>Birthday: {contactInfo.dob}</li>
+                        {(showInfo && user.dob)?
+                            <li><CakeIcon className = {styles.contactIcons}></CakeIcon>Birthday: {user.dob}</li>
                         : ""}
-                        {showInfo && contactInfo.marital_status?  <li><ChurchIcon className = {styles.contactIcons}></ChurchIcon>Marital Status:{contactInfo.marital_status}</li> : ""}
-                        {showInfo && contactInfo.country? <li><PublicIcon className = {styles.contactIcons}></PublicIcon>Country: {contactInfo.country}</li>: " "}          
+                        {showInfo && user.marital_status?  <li><ChurchIcon className = {styles.contactIcons}></ChurchIcon>Marital Status:{user.marital_status}</li> : ""}
+                        {showInfo && user.country? <li><PublicIcon className = {styles.contactIcons}></PublicIcon>Country: {user.country}</li>: " "}          
                                               
-                        {contactInfo.dob || contactInfo.marital_status ?  
+                        {user.dob || user.marital_status ?  
                             <a onClick = {() => setShowInfo((prevState) => prevState? false : true)}>
                                 <InfoIcon id = {styles.contactIconsInfo}></InfoIcon><span>Show {showInfo? "less" : "more"} information</span>
                             </a>

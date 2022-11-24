@@ -10,16 +10,7 @@ export default function editProfile(){
     const { id } = router.query;
 
     const [userData, setUserData] = useState({
-        first_name: "", 
-        last_name:"",
-        profile_pic: "",
-        gender:"",
-        country:"",
-        education:"",
-        city:"",
-        dob:"",
-    })
-
+})
 
    useEffect(() => {
 
@@ -27,6 +18,7 @@ export default function editProfile(){
             return
         }
         else{
+            console.log(router.query)
             setUserData((prevState) => ({
                 ...prevState,
                 first_name: router.query.first_name, 
@@ -46,16 +38,17 @@ export default function editProfile(){
 
     const updateProfile = (e) => {
         e.preventDefault();
+
         const updatedUser = {
-                first_name: e.target.first_name.value, 
-                last_name:e.target.last_name.value,
+                first_name: e.target.first_name.value != "" ? e.target.first_name.value : router.query.first_name, 
+                last_name: e.target.last_name.value != "" ? e.target.last_name.value : router.query.first_name ,
                 //profile_pic: "",
-                country:e.target.country.value,
-                gender:e.target.gender.value,
-                education:e.target.education.value,
-                city:e.target.city.value,
-                dob:e.target.dob.value,
-                marital:e.target.marital.value,
+                country:e.target.country.value != ""? e.target.country.value : router.query.country,
+                gender:e.target.gender.value != "" ? e.target.gender.value : router.query.country,
+                education:e.target.education.value  != "" ? e.target.education.value : router.query.education,
+                city:e.target.city.value  != "" ? e.target.city.value : router.query.city,
+                dob:e.target.dob.value  != "" ? e.target.dob.value : router.query.dob,
+                marital:e.target.marital.value  != "" ? e.target.marital.value : router.query.marital, 
         }
         setUserData((prevState) => ({
             ...prevState,
@@ -97,7 +90,7 @@ export default function editProfile(){
                 <input type="text" placeholder={userData.first_name} name = "first_name" id = "first_name"></input>
 
                 <label htmlFor="last_name">Last Name</label>
-                <input type="text" placeholder="Haranina" name = {userData.last_name}  id = "last_name"></input>
+                <input type="text" placeholder={userData.last_name} name = {userData.last_name} id = "last_name"></input>
 
                 <div className = {styles.GenderContainer}>
                     <p>Gender</p>
@@ -110,23 +103,23 @@ export default function editProfile(){
                 </div>
                
                 <label htmlFor="birthday" id={styles.bodLabel}>Birthday</label>
-                <input type="date" name = "dob" id = "birthday" {...userData.dob != ""? value = userData.dob : ""}></input>
+                <input type="date" name = "dob" id = "birthday" placeholder={userData.dob}  ></input>
         
                 <label htmlFor="Marital_Status">Marital Status</label>
-                <select id = "Marital_Status" value = {userData.marital != ""? userData.marital : ""} name = "marital">
+                <select id = "Marital_Status" name = "marital">
                     <option value="Married">Married</option>
                     <option value="Single">Single</option>
                     <option value="Active Search">Active Search</option>
                 </select>
 
                 <label htmlFor="country">Country</label>
-                <input type="text"  placeholder = {userData.country} name = "country"  id = "country"></input>
+                <input type="text" placeholder = {userData.country} name = "country"  id = "country"></input>
                 
                 <label htmlFor="city">City</label>
                 <input type="text"  name = "city"  id = "city" placeholder={userData.city} ></input>
 
                 <label htmlFor="education">Education</label>
-                <input type="text"  name = "education"  id = "education"  placeholder={userData.education} ></input>
+                <input type="text"  name = "education"  id = "education"  placeholder={userData.education}></input>
 
                 <input type="submit" value="Save"></input>
             </form>
