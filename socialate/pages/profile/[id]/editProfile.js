@@ -20,7 +20,8 @@ export default function editProfile(){
         dob:"",
     })
 
-    useEffect(() => {
+
+   useEffect(() => {
 
         if(!router.isReady){
             return
@@ -79,6 +80,7 @@ export default function editProfile(){
             })
        
     }
+
     return (
         <div className={styles.editProfileContainer}>
         <Header></Header>

@@ -78,6 +78,19 @@
         padding: 1em 0;
         margin: auto;
         margin-bottom:1em;
+        position:relative;
+    }
+
+
+    .contactBtn{
+        position: absolute;
+        top:9%;
+        left:75%;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #638FFF;
+        color: white;
     }
 
     .ContactInfo h3{
@@ -361,4 +374,6 @@
         margin-right: 0.2em;
         color: #638FFF;
     }
+
+
 }

@@ -8,8 +8,9 @@ import SchoolIcon from '@mui/icons-material/School';
 import InfoIcon from '@mui/icons-material/Info';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-
-
+import PublicIcon from '@mui/icons-material/Public';
+import CakeIcon from '@mui/icons-material/Cake';
+import ChurchIcon from '@mui/icons-material/Church';
 
 const Profile = () => {
 
@@ -112,16 +113,18 @@ const Profile = () => {
 
                 <h3>Contact Info</h3>
                 {contactInfo != null ? 
-                <div className='ContactInfoExists'>
-                    <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Edit Contact Info</button>
+                <div className={styles.ContactInfoExists}>
+                    <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
                     <ul>
                         {contactInfo.gender ? <li>{contactInfo.gender}</li> : ""}
                         {contactInfo.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {contactInfo.city}</span></li> : ''}
                         {contactInfo.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {contactInfo.education}</span></li> : ''}
 
-                        {showInfo? <li>Birthday:{contactInfo.dob}</li>: ""}
-                        {showInfo? <li>Marital Status:{contactInfo.marital_status}</li>: ""}
-                        {showInfo? <li>Country:{contactInfo.country}</li>: ""}          
+                        {(showInfo && contactInfo.dob)?
+                            <li><CakeIcon className = {styles.contactIcons}></CakeIcon>Birthday: {contactInfo.dob}</li>
+                        : ""}
+                        {showInfo && contactInfo.marital_status?  <li><ChurchIcon className = {styles.contactIcons}></ChurchIcon>Marital Status:{contactInfo.marital_status}</li> : ""}
+                        {showInfo && contactInfo.country? <li><PublicIcon className = {styles.contactIcons}></PublicIcon>Country: {contactInfo.country}</li>: " "}          
                                               
                         {contactInfo.dob || contactInfo.marital_status ?  
                             <a onClick = {() => setShowInfo((prevState) => prevState? false : true)}>
@@ -137,7 +140,7 @@ const Profile = () => {
                 :
                 
                 <div>
-                <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Add Contact Info</button>
+                <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Add Contact Info</button>
                 </div>
 
                 }

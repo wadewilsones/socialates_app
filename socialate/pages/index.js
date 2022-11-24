@@ -68,7 +68,7 @@ export default function Home() {
           <label htmlFor = "password">Password</label>
           <input type="password" required name = "password" id ="password" placeholder='●●●●●'  autoComplete='true'></input>
           <input type ="submit" value = "Login"></input>
-          <p>Don't have an account? <Link href = "/signup">Sign up!</Link></p>
+          <p>Dont have an account? <Link href = "/signup">Sign up!</Link></p>
         </form>
          
       </main>
