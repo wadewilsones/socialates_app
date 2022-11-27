@@ -11,6 +11,7 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import PublicIcon from '@mui/icons-material/Public';
 import CakeIcon from '@mui/icons-material/Cake';
 import ChurchIcon from '@mui/icons-material/Church';
+import TransgenderIcon from '@mui/icons-material/Transgender';
 
 const Profile = () => {
 
@@ -61,6 +62,7 @@ const Profile = () => {
                     country:data.user.country,
                     education:data.user.education,
                     city:data.user.city,
+                    gender:data.user.gender,
                     dob:bDay,
                     marital_status:data.user.marital_status
                 }))
@@ -114,7 +116,7 @@ const Profile = () => {
                 <div className={styles.ContactInfoExists}>
                     <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
                     <ul>
-                        {user.gender ? <li>{contactInfo.gender}</li> : ""}
+                        {user.gender ? <li><TransgenderIcon className = {styles.contactIcons}></TransgenderIcon>Gender: {user.gender}</li> : ""}
                         {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
                         {user.education?<li><SchoolIcon  className = {styles.contactIcons}></SchoolIcon><span>Education:  {user.education}</span></li> : ''}
 

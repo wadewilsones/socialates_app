@@ -27,7 +27,6 @@ export default function editProfile(){
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data.user.gender)
                     //Update userData
                     setUserData((prevState) => ({
                         ...prevState,
@@ -42,12 +41,14 @@ export default function editProfile(){
                         marital:data.user.marital,
                     })
                     )
+                if(data.user.gender == "Female"){
+                    setGender(true)
+                }
                 })
                
         }
    
     }, [router.isReady])
-
 
     const updateProfile = (e) => {
         e.preventDefault();
@@ -56,7 +57,7 @@ export default function editProfile(){
                 last_name: e.target.last_name.value != "" ? e.target.last_name.value : userData.last_name ,
                 //profile_pic: "",
                 country:e.target.country.value != ""? e.target.country.value : userData.country,
-                gender:e.target.gender.value != "" ? e.target.gender.value : userData.country,
+                gender:e.target.gender.value != "" ? e.target.gender.value : userData.gender,
                 education:e.target.education.value  != "" ? e.target.education.value : userData.education,
                 city:e.target.city.value  != "" ? e.target.city.value : userData.city,
                 dob:e.target.dob.value  != "" ? e.target.dob.value : userData.dob,
@@ -108,14 +109,14 @@ export default function editProfile(){
                     <p>Gender</p>
                     
                     <label htmlFor="male">Male</label>
-                    <input type="radio" name = "gender" value='Male' id = "male"></input>
+                    <input type="radio" name = "gender" value='Male' id = "male"  checked={userData.gender === "Male"} onChange = {(e)=> {setUserData((p) => ({...p, gender:'Male'}))}}/>
 
                     <label htmlFor="female">Female</label>
-                    <input type="radio" name = "gender" value='Female' id = "female"></input>
+                    <input type="radio" name = "gender" value='Female' id = "female" checked={userData.gender === "Female"} onChange = {(e)=> {setUserData((p) => ({...p, gender:'Female'}))}}/>
                 </div>
                
                 <label htmlFor="birthday" id={styles.bodLabel}>Birthday</label>
-                <input type="date" name = "dob" id = "birthday" placeholder={userData.dob}  ></input>
+                <input type="date" name = "dob" id = "birthday" placeholder={userData.dob}></input>
         
                 <label htmlFor="Marital_Status">Marital Status</label>
                 <select id = "Marital_Status" name = "marital">
@@ -124,14 +125,16 @@ export default function editProfile(){
                     <option value="Active Search">Active Search</option>
                 </select>
 
-                <label htmlFor="country">Country</label>
+                <label htmlFor="country">Country
                 <input type="text" placeholder = {userData.country} name = "country"  id = "country"></input>
+                </label>
                 
                 <label htmlFor="city">City</label>
                 <input type="text"  name = "city"  id = "city" placeholder={userData.city} ></input>
 
-                <label htmlFor="education">Education</label>
+                <label htmlFor="education">Education
                 <input type="text"  name = "education"  id = "education"  placeholder={userData.education}></input>
+                </label>
 
                 <input type="submit" value="Save" ></input>
             </form>
