@@ -38,6 +38,10 @@
         border:2px solid red;
     }
 
+    .editProfileContainer input[type="submit"]{
+        cursor: pointer;
+    }
+
     /*Profile Picture*/
 
     #UpdatePictureLabel{

@@ -14,6 +14,7 @@ export default async function updateProfile(req, res){
             country:userDate.country,
             city:userDate.city,
             dob:userDate.dob,
+            marital_status:userDate.marital_status
         
         });
         res.json({'status':'Updated'});

@@ -8,9 +8,8 @@ export default function editProfile(){
 
     const router = useRouter();
     const { id } = router.query;
-
-    const [userData, setUserData] = useState({
-})
+    const [userData, setUserData] = useState({});
+    const [isFemale, setGender] = useState(false);
 
    useEffect(() => {
 
@@ -18,37 +17,50 @@ export default function editProfile(){
             return
         }
         else{
-            console.log(router.query)
-            setUserData((prevState) => ({
-                ...prevState,
-                first_name: router.query.first_name, 
-                last_name:router.query.last_name,
-                profile_pic: "",
-                gender:router.query.gender,
-                country:router.query.country,
-                education:router.query.education,
-                city:router.query.city,
-                dob:router.query.dob,
-                marital:router.query.marital,
+            //Get userData from api
 
-            }))
+            fetch(`/api/profile/${id}/`, {
+                method:'GET',
+                headers: {
+                    'Content-Type':'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.user.gender)
+                    //Update userData
+                    setUserData((prevState) => ({
+                        ...prevState,
+                        first_name:data.user.first_name, 
+                        last_name:data.user.last_name,
+                        profile_pic: "",
+                        gender:data.user.gender,
+                        country:data.user.country,
+                        education:data.user.education,
+                        city:data.user.city,
+                        dob:data.user.dob,
+                        marital:data.user.marital,
+                    })
+                    )
+                })
+               
         }
+   
     }, [router.isReady])
 
 
     const updateProfile = (e) => {
         e.preventDefault();
-
         const updatedUser = {
-                first_name: e.target.first_name.value != "" ? e.target.first_name.value : router.query.first_name, 
-                last_name: e.target.last_name.value != "" ? e.target.last_name.value : router.query.first_name ,
+                first_name: e.target.first_name.value != "" ? e.target.first_name.value : userData.first_name, 
+                last_name: e.target.last_name.value != "" ? e.target.last_name.value : userData.last_name ,
                 //profile_pic: "",
-                country:e.target.country.value != ""? e.target.country.value : router.query.country,
-                gender:e.target.gender.value != "" ? e.target.gender.value : router.query.country,
-                education:e.target.education.value  != "" ? e.target.education.value : router.query.education,
-                city:e.target.city.value  != "" ? e.target.city.value : router.query.city,
-                dob:e.target.dob.value  != "" ? e.target.dob.value : router.query.dob,
-                marital:e.target.marital.value  != "" ? e.target.marital.value : router.query.marital, 
+                country:e.target.country.value != ""? e.target.country.value : userData.country,
+                gender:e.target.gender.value != "" ? e.target.gender.value : userData.country,
+                education:e.target.education.value  != "" ? e.target.education.value : userData.education,
+                city:e.target.city.value  != "" ? e.target.city.value : userData.city,
+                dob:e.target.dob.value  != "" ? e.target.dob.value : userData.dob,
+                marital_status:e.target.marital.value  != "" ? e.target.marital.value : userData.marital, 
         }
         setUserData((prevState) => ({
             ...prevState,
@@ -96,10 +108,10 @@ export default function editProfile(){
                     <p>Gender</p>
                     
                     <label htmlFor="male">Male</label>
-                    <input type="radio" name = "gender" value='Male' id = "male" {...userData.gender == 'male'? defaultChecked : ""}></input>
+                    <input type="radio" name = "gender" value='Male' id = "male"></input>
 
                     <label htmlFor="female">Female</label>
-                    <input type="radio" name = "gender" value='Female' id = "female" {...userData.gender == 'female'? defaultChecked : ""}></input>
+                    <input type="radio" name = "gender" value='Female' id = "female"></input>
                 </div>
                
                 <label htmlFor="birthday" id={styles.bodLabel}>Birthday</label>
@@ -121,7 +133,7 @@ export default function editProfile(){
                 <label htmlFor="education">Education</label>
                 <input type="text"  name = "education"  id = "education"  placeholder={userData.education}></input>
 
-                <input type="submit" value="Save"></input>
+                <input type="submit" value="Save" ></input>
             </form>
             <Footer></Footer>
         </div>

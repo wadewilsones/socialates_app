@@ -24,7 +24,8 @@ const Profile = () => {
         profile_pic: "",
         status:"Some meaningful status",
         is_Online:'False',
-        friends:""
+        friends:"",
+        marital_status:""
     });
 
     useEffect(() => {
@@ -61,9 +62,10 @@ const Profile = () => {
                     education:data.user.education,
                     city:data.user.city,
                     dob:bDay,
-                    marital_status:data.user.marital,
-
+                    marital_status:data.user.marital_status
                 }))
+
+              console.log(user.marital_status)
             })
         }
 
@@ -119,7 +121,9 @@ const Profile = () => {
                         {(showInfo && user.dob)?
                             <li><CakeIcon className = {styles.contactIcons}></CakeIcon>Birthday: {user.dob}</li>
                         : ""}
-                        {showInfo && user.marital_status?  <li><ChurchIcon className = {styles.contactIcons}></ChurchIcon>Marital Status:{user.marital_status}</li> : ""}
+                        {showInfo && (user.marital_status != "")? 
+                        <li><ChurchIcon className = {styles.contactIcons}></ChurchIcon>Marital Status: {user.marital_status}</li> 
+                        : ""}
                         {showInfo && user.country? <li><PublicIcon className = {styles.contactIcons}></PublicIcon>Country: {user.country}</li>: " "}          
                                               
                         {user.dob || user.marital_status ?  
@@ -136,7 +140,7 @@ const Profile = () => {
                 :
                 
                 <div>
-                <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}>Add Contact Info</button>
+                <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/editProfile`, query: id})}}>Add Contact Info</button>
                 </div>
 
                 }
