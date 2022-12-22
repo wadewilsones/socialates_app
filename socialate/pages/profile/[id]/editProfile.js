@@ -8,7 +8,9 @@ export default function editProfile(){
 
     const router = useRouter();
     const { id } = router.query;
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState({
+
+    });
     const [isFemale, setGender] = useState(false);
 
    useEffect(() => {
@@ -32,7 +34,7 @@ export default function editProfile(){
                         ...prevState,
                         first_name:data.user.first_name, 
                         last_name:data.user.last_name,
-                        profile_pic: "",
+                        profile_pic: data.user.profile_pic,
                         gender:data.user.gender,
                         country:data.user.country,
                         education:data.user.education,
@@ -50,12 +52,15 @@ export default function editProfile(){
    
     }, [router.isReady])
 
+    //After form was submitted the function will send data to Server
+
     const updateProfile = (e) => {
         e.preventDefault();
+        console.log(e.target.profile_pic.value);
         const updatedUser = {
                 first_name: e.target.first_name.value != "" ? e.target.first_name.value : userData.first_name, 
                 last_name: e.target.last_name.value != "" ? e.target.last_name.value : userData.last_name ,
-                //profile_pic: "",
+                profile_pic: e.target.profile_pic.value != undefined ? e.target.profile_pic.value :  data.user.profile_pic,
                 country:e.target.country.value != ""? e.target.country.value : userData.country,
                 gender:e.target.gender.value != "" ? e.target.gender.value : userData.gender,
                 education:e.target.education.value  != "" ? e.target.education.value : userData.education,
@@ -87,15 +92,25 @@ export default function editProfile(){
        
     }
 
+    //Change picture's state of source 
+
+    const DisplaySelectedPicture = (e) => {
+        e.preventDefault();
+        setUserData((prevState) => ({
+            ...prevState,
+            profile_pic: URL.createObjectURL(e.target.files[0]), 
+        }))
+    }
+
     return (
         <div className={styles.editProfileContainer}>
         <Header></Header>
         <h1>Edit profile</h1>
             <form onSubmit={updateProfile}>
-                <img src ="https://cdn.pixabay.com/photo/2022/10/31/10/18/red-deer-7559423_960_720.jpg" alt='profile Picture' id ={styles.user_pic}></img>
+                <img src ={userData.profile_pic != undefined? userData.profile_pic : '/images/noImg.png'} alt='profile Picture' id ={styles.user_pic}></img>
 
                 <label htmlFor="profile_picInput" id = {styles.UpdatePictureLabel}>Update Picture
-                    <input type="file" id="profile_picInput" name="profile_pic"></input>
+                    <input type="file" id="profile_picInput" name="profile_pic" accept="image/*" multiple onChange={DisplaySelectedPicture}></input>
                 </label>
                
 

@@ -7,7 +7,10 @@ const UserSchema = new Schema({
     password: {type:String, required:true},
     first_name: {type:String, required:true},
     last_name: {type:String, required:true},
-    profile_pic: mongoose.Types.ObjectId,
+    profile_pic: {
+        data:Buffer,
+        contentType: String
+    },
     gender:String,
     education:String,
     status:String,
