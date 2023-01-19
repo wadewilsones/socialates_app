@@ -40,8 +40,13 @@ useEffect(() => {
 
                 {(peopleList != null)? 
                 //Display people
-                <section>
-                    {peopleList.map(person => <li key = {person.id}>{person.fName + " " + person.lName}</li>)}
+                <section className={styles.FriendsDisplayContainer}>
+                    {peopleList.map(person => 
+                    <div className={styles.singleFriend}key = {person.id}>
+                        <img src="https://cdn.pixabay.com/photo/2020/12/23/21/21/macarons-5856039_1280.jpg"></img>
+                        <a>{person.fName + " " + person.lName}</a>
+                        <button>Add Friend</button>
+                    </div>)}
                 </section>
                 //If there is no users at all display
                 :<section className={styles.noFriends}>No people found.<br></br>But you can invite someone!</section>}
