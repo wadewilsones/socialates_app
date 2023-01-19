@@ -95,8 +95,17 @@ const Profile = () => {
         }
     }
 
-    return <div className={styles.container}>
+    //Send user to find new friends
+
+    const findFriends = () =>{
+        //redirect to searchs
+        router.push("/friendSearch");
+    }
+
+    return (<div className={styles.container}>
+
         <Header></Header>
+        {/* MAIN INFO SECTION */}
             <section className={styles.UserMainInfo}>
                 <img src = {user.profile_pic ? user.profile_pic : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}></img>
                 <div id = {styles.status}>
@@ -108,10 +117,11 @@ const Profile = () => {
                 <h3>{user.first_name} {user.last_name}</h3>
                 <input type="text" placeholder={user.status ? user.status : "Type your status here..."} id = {styles.statusInput} onKeyPress = {HandleStatus}/>
             </section>
-
+            
             <section className={styles.ContactInfo}>
-
+        {/* CONTACT INFO SECTION */}
                 <h3>Contact Info</h3>
+
                 {user != null ? 
                 <div className={styles.ContactInfoExists}>
                     <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
@@ -140,7 +150,7 @@ const Profile = () => {
                 </div>
 
                 :
-                
+      
                 <div>
                 <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/editProfile`, query: id})}}>Add Contact Info</button>
                 </div>
@@ -148,10 +158,10 @@ const Profile = () => {
                 }
                
             </section>
-
+    {/* FRIENDS INFO SECTION */}
             <section  className={styles.Friends}>
                 <h3>Friends <span>{user.friends? '3' : ''}</span></h3>
-                {user.friends != '' ?  
+                {user.friends != null ?  
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
@@ -164,11 +174,11 @@ const Profile = () => {
                 </div> : 
                 <div className = {styles.noFriends}>
                     <p>You have no friends</p>
-                    <button>Find friends</button>
+                    <button onClick={findFriends}>Find friends</button>
                 </div>}
             </section>
 
-
+    {/* PHOTO INFO SECTION */}
             <section  className={styles.Photos}>
                 <h3>Photos <span>12</span></h3>
                 <div>
@@ -219,7 +229,7 @@ const Profile = () => {
 
             <Footer></Footer>
    
-    </div>;
+    </div>)
 }
 
 export default Profile;

@@ -206,6 +206,7 @@
         margin: 2em auto;
         border-radius: 5px;
         border:none;
+        cursor: pointer;
         font-size: 0.8em;
     }
 
