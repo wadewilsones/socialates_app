@@ -65,9 +65,9 @@
 .singleFriend{
   list-style-type: none;
   display: flex;
+  justify-content:space-between;
   align-items: center;
   margin: 1em 0;
-
 }
 
 .singleFriend img{
@@ -81,7 +81,7 @@
 .singleFriend a{
 
   font-size: 1.2em;
-  margin-right: 1.5em;
+  margin-right: 3em;
 
 }
 
@@ -91,6 +91,7 @@
   box-shadow: 1px 1px 10px rgba(104, 97, 97, 0.507);
   border-radius: 5px;
   cursor: pointer;
+  
 }
 
 }

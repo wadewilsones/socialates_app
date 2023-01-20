@@ -2,12 +2,16 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
+import { Router } from "next/router";
+import { useRouter } from 'next/router'
 export default function friendSearch(){
 
 // Display 10 people from DB
 
 const [peopleList, setPeopleList] = useState(null);
+const [isPending, setFrinedStatus] = useState(false);
 
+const router = useRouter();
 // If user used search input, make a call to backend
 
 useEffect(() => {
@@ -20,6 +24,24 @@ useEffect(() => {
         setPeopleList(data.users);
     })
 }, [])
+
+//After user clicked Add Frined button
+const sendFriendRequest = (e) => {
+    e.preventDefault();
+    alert('Friend request was sent to ' + e.target.parentNode.id);
+    setFrinedStatus(true);
+}
+
+
+//If user clicked on name or image
+
+const showPage = (e) => {
+
+    const userId = e.target.parentNode.id;
+    //Send to yser page
+    e.preventDefault();
+    router.push(`/profile/${userId}`);
+}
 
     return (
         <div>
@@ -42,10 +64,10 @@ useEffect(() => {
                 //Display people
                 <section className={styles.FriendsDisplayContainer}>
                     {peopleList.map(person => 
-                    <div className={styles.singleFriend}key = {person.id}>
-                        <img src="https://cdn.pixabay.com/photo/2020/12/23/21/21/macarons-5856039_1280.jpg"></img>
+                    <div className={styles.singleFriend} id = {person.id}>
+                        <img src="https://cdn.pixabay.com/photo/2020/12/23/21/21/macarons-5856039_1280.jpg" onClick = {showPage}></img>
                         <a>{person.fName + " " + person.lName}</a>
-                        <button>Add Friend</button>
+                        <button onClick = {sendFriendRequest}>Add Friend</button>
                     </div>)}
                 </section>
                 //If there is no users at all display
