@@ -1,6 +1,5 @@
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import HomeIcon from '@mui/icons-material/Home';
-import FeedIcon from '@mui/icons-material/Feed';
 import cookie from "js-cookie";
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -21,7 +20,7 @@ import { useEffect } from 'react';
         <footer>
             <section>
                 <div>
-                    <span>12</span>
+                    <span>7</span>
                     <Diversity3Icon className = "footer-icons" ></Diversity3Icon>
                 </div>
                 <h4>Friends</h4>
@@ -34,10 +33,10 @@ import { useEffect } from 'react';
             </section>
             <section>
                 <div>
-                    <span>4</span>
-                    <FeedIcon className = "footer-icons"></FeedIcon>
-                </div>
-                <h4>Feed</h4>
+                <span>12</span>
+                    <img src="/images/chat.svg" className = "footer-icons"/>
+                </div>           
+                <h4>Messages</h4>
             </section>
         </footer>
     )

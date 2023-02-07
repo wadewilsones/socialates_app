@@ -1,4 +1,5 @@
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import LogoutIcon from '@mui/icons-material/Logout';
 const Header = () => {
     return (        
         <header>
@@ -6,12 +7,9 @@ const Header = () => {
                 <h4>Socialates</h4>
                 <h6>Stay Social</h6>
             </div>
-            <div>
-                <div>
-                    <span>12</span>
-                    <img src="/images/chat.svg" className = "icons"/>
-                </div>           
-                <p>Messages</p>
+            <div className='headerLogOut'>
+                <LogoutIcon className='headerIcon'/>   
+                <p>Log out</p>
             </div>
 
         </header>

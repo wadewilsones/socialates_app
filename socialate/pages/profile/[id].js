@@ -99,7 +99,13 @@ const Profile = () => {
 
     const findFriends = () =>{
         //redirect to searchs
-        router.push("/friendSearch");
+        router.push(`/profile/${id}/friendSearch`);
+    }
+
+    //Display all user friends
+
+    const listUserFriends = () =>{
+        router.push(`/profile/${id}/friendList`)
     }
 
     return (<div className={styles.container}>
@@ -160,8 +166,8 @@ const Profile = () => {
             </section>
     {/* FRIENDS INFO SECTION */}
             <section  className={styles.Friends}>
-                <h3>Friends <span>{user.friends? '3' : ''}</span></h3>
-                {user.friends != null ?  
+                <h3 onClick = {listUserFriends}>Friends <span>{user.friends.length > 0? user.friends.length : ''}</span></h3>
+                {user.friends.length > 0 ?  
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
@@ -199,7 +205,7 @@ const Profile = () => {
                 </div>
 
             </section>
-
+    {/* POST  SECTION */}
             <section className={styles.postsWall}>
 
                 <div className = {styles.singlePost}>
