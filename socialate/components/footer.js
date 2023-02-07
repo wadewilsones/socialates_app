@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 
  const Footer = () => {
 
+    const router = useRouter();
+
     const[id, setId] = useState();
     useEffect(()=>{
 
@@ -19,7 +21,7 @@ import { useEffect } from 'react';
     return (        
         <footer>
             <section>
-                <div>
+                <div onClick={() => {router.push({pathname: `/profile/${id}/friendList`})}}>
                     <span>7</span>
                     <Diversity3Icon className = "footer-icons" ></Diversity3Icon>
                 </div>

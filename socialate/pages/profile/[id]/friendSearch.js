@@ -38,7 +38,7 @@ useEffect(() => {
         })
     }
     
-}, [])
+}, [router.isReady])
 
 //After user clicked Add Frined button
 const sendFriendRequest = (e) => {
