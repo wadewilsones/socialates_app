@@ -12,6 +12,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import CakeIcon from '@mui/icons-material/Cake';
 import ChurchIcon from '@mui/icons-material/Church';
 import TransgenderIcon from '@mui/icons-material/Transgender';
+import { getCookie } from 'cookies-next';
+
 
 const Profile = () => {
 
@@ -23,8 +25,8 @@ const Profile = () => {
         first_name: "", 
         last_name:"",
         profile_pic: "",
-        status:"Some meaningful status",
-        is_Online:'False',
+        status:"",
+        is_Online:"",
         friends:"",
         marital_status:""
     });
@@ -34,40 +36,46 @@ const Profile = () => {
             return
         }
         else{
+            const token = getCookie("token");
             fetch(`/api/profile/${id}`, {
-                method:'GET'
+                method:'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             .then(res => res.json())
             .then((data) => {
-                let bDay;
-                //Convert date to other format
-                if(data.user.dob){
-                    const date = new Date(data.user.dob);
-                    console.log(date);
-                    const month = new Intl.DateTimeFormat('en-US', {month:'long'}).format(date)
-                    bDay = `${month} ${date.getDate()}`;
-                    console.log(bDay)
+                if(data.authorization){
+                    let bDay;
+                    //Convert date to other format
+                    if(data.user.dob){
+                        const date = new Date(data.user.dob);
+                        const month = new Intl.DateTimeFormat('en-US', {month:'long'}).format(date)
+                        bDay = `${month} ${date.getDate()}`;
+                    }
+    
+                    //Update main information   
+                    setUser((prevState) => ({
+                        ...prevState,
+                        first_name: data.user.first_name, 
+                        last_name:data.user.last_name,
+                        profile_pic: data.user.profile_pic,
+                        status:data.user.status,
+                        is_Online:'True',
+                        is_userProfile:'True',
+                        friends:data.user.friends,
+                        country:data.user.country,
+                        education:data.user.education,
+                        city:data.user.city,
+                        gender:data.user.gender,
+                        dob:bDay,
+                        marital_status:data.user.marital_status
+                    }))
+                }
+                else{
+                    router.push('/');
                 }
 
-                //Update main information   
-                setUser((prevState) => ({
-                    ...prevState,
-                    first_name: data.user.first_name, 
-                    last_name:data.user.last_name,
-                    profile_pic: data.user.profile_pic,
-                    status:data.user.status,
-                    is_Online:'True',
-                    is_userProfile:'True',
-                    friends:data.user.friends,
-                    country:data.user.country,
-                    education:data.user.education,
-                    city:data.user.city,
-                    gender:data.user.gender,
-                    dob:bDay,
-                    marital_status:data.user.marital_status
-                }))
-
-              console.log(user.marital_status)
             })
         }
 
@@ -108,7 +116,9 @@ const Profile = () => {
         router.push(`/profile/${id}/friendList`)
     }
 
-    return (<div className={styles.container}>
+    return (
+
+        <div className={styles.container}>
 
         <Header></Header>
         {/* MAIN INFO SECTION */}

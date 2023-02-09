@@ -22,7 +22,6 @@ useEffect(() => {
     }
     else{
         const id = router.query.id;
-        console.log('This will be send to server:' + id)
         fetch(`/api/profile/${id}/listUsers`, {
             method:'POST',
             headers: {
@@ -45,6 +44,8 @@ const sendFriendRequest = (e) => {
     e.preventDefault();
     alert('Friend request was sent to ' + e.target.parentNode.id);
     setFrinedStatus(true);
+
+    //Fetch api
 }
 
 
