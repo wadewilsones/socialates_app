@@ -20,7 +20,8 @@ const UserSchema = new Schema({
     marital_status:String,
     is_Online:Boolean,
     friends: [mongoose.Types.ObjectId],
-    friendRequests: [mongoose.Types.ObjectId]
+    friendRequests: [mongoose.Types.ObjectId],
+    frinedsInvintations: [mongoose.Types.ObjectId]
 })
 
 module.exports =  mongoose.models.UserSchema || mongoose.model('UserSchema', UserSchema);

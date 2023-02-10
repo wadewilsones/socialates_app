@@ -5,7 +5,6 @@ const Header = () => {
 
     const router =  useRouter();
     const logout = () =>{
-        alert ("Log out was pressed");
         fetch("/api/logout", {
             method: 'GET'
         })

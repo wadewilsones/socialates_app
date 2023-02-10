@@ -1,6 +1,7 @@
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
-import styles from "../../../styles/Home.module.css";
+import Header from "../../../../components/header";
+import Footer from "../../../../components/footer";
+import styles from "../../../../styles/Home.module.css";
+import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 import { Router } from "next/router";
 import { useRouter } from 'next/router'
@@ -9,10 +10,9 @@ export default function friendSearch(){
 // Display 10 people from DB
 
 const [peopleList, setPeopleList] = useState(null);
-const [isPending, setFrinedStatus] = useState(false);
 
 const router = useRouter();
-
+const token = getCookie("token");
 // If user used search input, make a call to backend
 
 useEffect(() => {
@@ -22,13 +22,15 @@ useEffect(() => {
     }
     else{
         const id = router.query.id;
-        fetch(`/api/profile/${id}/listUsers`, {
+
+        fetch(`/api/profile/${id}/friends/listUsers`, {
             method:'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
             }, 
             body: JSON.stringify({
-                userId:id,
+                userId:id
               })
         })
         .then(res => res.json())
@@ -42,12 +44,26 @@ useEffect(() => {
 //After user clicked Add Frined button
 const sendFriendRequest = (e) => {
     e.preventDefault();
-    alert('Friend request was sent to ' + e.target.parentNode.id);
-    setFrinedStatus(true);
-
+    const id = router.query.id;
+    const requestSides = {
+        "sender": id,
+        "receiver": e.target.parentNode.id
+    }
     //Fetch api
-}
 
+    fetch(`/api/profile/${id}/friends/addFriend`, {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json', // add this t osend json
+            Authorization: `Bearer ${token}`
+        }, 
+        body: JSON.stringify(requestSides)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+    })
+}
 
 //If user clicked on name or image
 
@@ -56,6 +72,7 @@ const showPage = (e) => {
     const userId = e.target.parentNode.id;
     //Send to yser page
     e.preventDefault();
+    e.target.value = "Cancel"
     router.push(`/profile/${userId}`);
 }
 
@@ -80,7 +97,7 @@ const showPage = (e) => {
                 //Display people
                 <section className={styles.FriendsDisplayContainer}>
                     {peopleList.map(person => 
-                    <div className={styles.singleFriend} id = {person.id}>
+                    <div className={styles.singleFriend} id = {person.id} key = {person.id}>
                         <img src="https://cdn.pixabay.com/photo/2020/12/23/21/21/macarons-5856039_1280.jpg" onClick = {showPage}></img>
                         <a>{person.fName + " " + person.lName}</a>
                         <button onClick = {sendFriendRequest}>Add Friend</button>

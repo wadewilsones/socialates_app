@@ -1,4 +1,4 @@
-import UserSchema from '../../../../models/users_model'
+import UserSchema from '../../../../../models/users_model'
 
 export default async function listUserFriends(req, res){
     const { id } = req.query;

@@ -1,4 +1,4 @@
-import UserSchema from '../../../../models/users_model'
+import UserSchema from '../../../../../models/users_model'
 
 export default async function changeStatus(req, res){
     const { id } = req.query;

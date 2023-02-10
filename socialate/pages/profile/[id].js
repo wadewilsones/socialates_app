@@ -91,7 +91,7 @@ const Profile = () => {
                 ...user,
                 status:e.target.value
             }))
-            fetch(`/api/profile/${id}/changeStatus`, {
+            fetch(`/api/profile/${id}/update/changeStatus`, {
                 method:'POST',
                 headers: {
                     'Content-Type':'application/json'
@@ -107,13 +107,13 @@ const Profile = () => {
 
     const findFriends = () =>{
         //redirect to searchs
-        router.push(`/profile/${id}/friendSearch`);
+        router.push(`/profile/${id}/friends/friendSearch`);
     }
 
     //Display all user friends
 
     const listUserFriends = () =>{
-        router.push(`/profile/${id}/friendList`)
+        router.push(`/profile/${id}/friends/friendList`)
     }
 
     return (
@@ -140,7 +140,7 @@ const Profile = () => {
 
                 {user != null ? 
                 <div className={styles.ContactInfoExists}>
-                    <button onClick={() => {router.push({pathname: `${id}/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
+                    <button onClick={() => {router.push({pathname: `${id}/update/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
                     <ul>
                         {user.gender ? <li><TransgenderIcon className = {styles.contactIcons}></TransgenderIcon>Gender: {user.gender}</li> : ""}
                         {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
@@ -168,7 +168,7 @@ const Profile = () => {
                 :
       
                 <div>
-                <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/editProfile`, query: id})}}>Add Contact Info</button>
+                <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/update/editProfile`, query: id})}}>Add Contact Info</button>
                 </div>
 
                 }
@@ -176,8 +176,8 @@ const Profile = () => {
             </section>
     {/* FRIENDS INFO SECTION */}
             <section  className={styles.Friends}>
-                <h3 onClick = {listUserFriends}>Friends <span>{user.friends.length > 0? user.friends.length : ''}</span></h3>
-                {user.friends.length > 0 ?  
+                <h3 onClick = {listUserFriends}>Friends <span>{user.friends != null? user.friends.length : ''}</span></h3>
+                {user.friends != null ?
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>

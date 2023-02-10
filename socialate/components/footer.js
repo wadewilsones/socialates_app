@@ -21,7 +21,7 @@ import { useEffect } from 'react';
     return (        
         <footer>
             <section>
-                <div onClick={() => {router.push({pathname: `/profile/${id}/friendList`})}}>
+                <div onClick={() => {router.push({pathname: `/profile/${id}/friends/friendList`})}}>
                     <span>7</span>
                     <Diversity3Icon className = "footer-icons" ></Diversity3Icon>
                 </div>

@@ -1,6 +1,6 @@
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
-import styles from "../../../styles/friendList.module.css";
+import Header from "../../../../components/header";
+import Footer from "../../../../components/footer";
+import styles from "../../../../styles/friendList.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 
