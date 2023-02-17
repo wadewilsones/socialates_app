@@ -54,8 +54,8 @@ const sendFriendRequest = (e) => {
     fetch(`/api/profile/${id}/friends/addFriend`, {
         method: 'POST',
         headers: {
-            'Content-Type':'application/json', // add this t osend json
-            Authorization: `Bearer ${token}`
+            'Content-Type':'application/json', // add this to send json
+            Authorization: `Bearer ${token}` 
         }, 
         body: JSON.stringify(requestSides)
     })
