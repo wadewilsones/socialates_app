@@ -7,8 +7,8 @@ export default async function rejectFriend(req,res){
     const { senderId } = req.body;
     //Add requested user to current user friend list
     try{
-        const updates = await UserSchema.findByIdAndUpdate(receiver, {$pull: {friendRequests: senderId}})
-        res.status(200).json({response:"Friend was accepted"})
+        const updates = await UserSchema.findByIdAndUpdate(receiverId, {$pull: {friendRequests: senderId}})
+        res.status(200).json({response:"Friend request was rejected"})
     }
     catch(err){
         console.log(err);

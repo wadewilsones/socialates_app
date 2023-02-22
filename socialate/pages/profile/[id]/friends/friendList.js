@@ -56,7 +56,21 @@ export default function friendList(){
     //Reject Friends
     const rejectFriend = (e) => {
         e.preventDefault();
-        alert("Removed")
+        const parentElement = e.target.parentElement;
+        console.log(parentElement.getAttribute('id'))
+        fetch(`/api/profile/${router.query.id}/friends/rejectFriend`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie("token")}`
+            },
+            body: JSON.stringify({
+                receiverId: router.query.id,
+                senderId: parentElement.getAttribute('id')
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
     }
     
 
