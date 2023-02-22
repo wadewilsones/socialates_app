@@ -19,9 +19,9 @@ const UserSchema = new Schema({
     dob:Date,
     marital_status:String,
     is_Online:Boolean,
-    friends: [mongoose.Types.ObjectId],
-    friendRequests: [mongoose.Types.ObjectId],
-    frinedsInvintations: [mongoose.Types.ObjectId]
+    friends: [{type:Schema.Types.ObjectId, ref:'UserSchema'}],
+    friendRequests: [{type:Schema.Types.ObjectId, ref:'UserSchema'}],
+    frinedsInvintations: [{type:Schema.Types.ObjectId, ref:'UserSchema'}]
 })
 
 module.exports =  mongoose.models.UserSchema || mongoose.model('UserSchema', UserSchema);

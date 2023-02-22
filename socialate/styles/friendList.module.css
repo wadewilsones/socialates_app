@@ -3,3 +3,13 @@
     font-size: 1.9em;
 
 }
+
+.friendReq_block{
+    border:2px solid red;
+    display: flex;
+}
+
+.friendReq_block li{
+    list-style-type: none;
+    
+}

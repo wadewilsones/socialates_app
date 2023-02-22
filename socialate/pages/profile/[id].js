@@ -27,7 +27,7 @@ const Profile = () => {
         profile_pic: "",
         status:"",
         is_Online:"",
-        friends:"",
+        friends:[],
         marital_status:""
     });
 
@@ -177,7 +177,7 @@ const Profile = () => {
     {/* FRIENDS INFO SECTION */}
             <section  className={styles.Friends}>
                 <h3 onClick = {listUserFriends}>Friends <span>{user.friends != null? user.friends.length : ''}</span></h3>
-                {user.friends != null ?
+                {user.friends.length > 0 ?
                 <div id = {styles.FriendsContainer}>
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>

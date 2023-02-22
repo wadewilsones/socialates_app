@@ -30,7 +30,6 @@ import { useEffect } from 'react';
         })
         .then(data => data.json())
         .then(data => {
-            console.log(data.friendRequests);
             setData((prevState) => ({
 
                 ...prevState,

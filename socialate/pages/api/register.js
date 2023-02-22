@@ -25,7 +25,7 @@ export default async function register (req, res) {
         dob:null,
         marital_status:null,
         is_Online:null,
-        friends: null
+        friends: []
     }
 
     try {

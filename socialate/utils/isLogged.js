@@ -2,7 +2,6 @@ import jwt from './jwt';
 
 export const isLogged = async (authorization) => {
 
-    console.log("Inside login" + authorization);
     const token = authorization.split (' ')[1];
     if(token != "undefined"){
         try{
