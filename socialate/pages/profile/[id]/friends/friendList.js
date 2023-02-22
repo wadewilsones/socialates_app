@@ -10,6 +10,7 @@ export default function friendList(){
 
     const router = useRouter();
     const [friendRequests, setFriendReqs] = useState([]);
+    const [friendList, setFriendList] = useState([]);
 
     useEffect(() => {
 
@@ -20,6 +21,7 @@ export default function friendList(){
         }
         else{
 
+            //Fetch any friendship reqs
             const { id } =  router.query;
             fetch(`/api/profile/${id}/friends/listFriends`, {
                 method:'GET'
@@ -29,9 +31,21 @@ export default function friendList(){
                 setFriendReqs(data.reqSenderInfo); 
              
             });
+
+            //Fetch friends
+
+            fetch(`/api/profile/${id}/friends/userFriends`, {
+                method:'GET'
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.friendsContainer);
+                setFriendList(data.friendsContainer); 
+             
+            });
         }
                 
-        },[router.isReady, friendRequests])
+        },[router.isReady])
 
     //Accept friend
     const acceptFriend = (e) => {
@@ -72,6 +86,24 @@ export default function friendList(){
         .then(res => res.json())
         .then(data => console.log(data))
     }
+
+    //Delete friend
+
+    const deleteFriend = (e) => {
+        e.preventDefault();
+        const parentElement = e.target.parentElement;
+        fetch(`/api/profile/${router.query.id}/friends/deleteFriend`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie("token")}`
+            },
+            body: JSON.stringify({
+                currentUserId: router.query.id,
+                userToDelete: parentElement.getAttribute('id')
+            })
+        })
+    }
     
 
     //Get all friends
@@ -92,6 +124,16 @@ export default function friendList(){
                 </div>
                 )
             : ""
+            }
+            {/* Display friends if any*/
+            
+            friendList.map((el) => 
+                <div id={el.id}>
+                    <li key = {el.id}>{el.name}</li>
+                    <button onClick = {deleteFriend}>Delete</button>
+                </div>
+            )
+            
             }
             <Footer></Footer>
         </div>
