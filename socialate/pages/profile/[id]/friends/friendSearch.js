@@ -10,7 +10,7 @@ export default function friendSearch(){
 // Display 10 people from DB
 
 const [peopleList, setPeopleList] = useState(null);
-
+ 
 const router = useRouter();
 const token = getCookie("token");
 // If user used search input, make a call to backend
@@ -30,11 +30,13 @@ useEffect(() => {
                 Authorization: `Bearer ${token}`
             }, 
             body: JSON.stringify({
-                userId:id
+                userId:id,
+                
               })
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             setPeopleList(data.users);
         })
     }
@@ -47,7 +49,8 @@ const sendFriendRequest = (e) => {
     const id = router.query.id;
     const requestSides = {
         "sender": id,
-        "receiver": e.target.parentNode.id
+        "receiver": e.target.parentNode.id,
+        "status": e.target.innerHTML
     }
     //Fetch api
 
@@ -62,6 +65,7 @@ const sendFriendRequest = (e) => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
+        
     })
 }
 
@@ -72,7 +76,6 @@ const showPage = (e) => {
     const userId = e.target.parentNode.id;
     //Send to yser page
     e.preventDefault();
-    e.target.value = "Cancel"
     router.push(`/profile/${userId}`);
 }
 
@@ -100,7 +103,7 @@ const showPage = (e) => {
                     <div className={styles.singleFriend} id = {person.id} key = {person.id}>
                         <img src="https://cdn.pixabay.com/photo/2020/12/23/21/21/macarons-5856039_1280.jpg" onClick = {showPage}></img>
                         <a>{person.fName + " " + person.lName}</a>
-                        <button onClick = {sendFriendRequest}>Add Friend</button>
+                        <button onClick = {sendFriendRequest}>{person.friendRequestStatus == "Pending"? "Cancel": "Add friend"}</button>
                     </div>)}
                 </section>
                 //If there is no users at all display

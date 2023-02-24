@@ -11,7 +11,7 @@ export default function friendList(){
     const router = useRouter();
     const [friendRequests, setFriendReqs] = useState([]);
     const [friendList, setFriendList] = useState([]);
-
+    const { id } =  router.query;
     useEffect(() => {
 
         //Fetch all friends
@@ -102,7 +102,7 @@ export default function friendList(){
                 currentUserId: router.query.id,
                 userToDelete: parentElement.getAttribute('id')
             })
-        })
+        }).then(router.reload())
     }
     
 
@@ -123,7 +123,12 @@ export default function friendList(){
                     <button  onClick = {rejectFriend}>Reject</button>
                 </div>
                 )
-            : ""
+            :
+            <div>
+
+                <p>You have no friends</p>
+                <button onClick = {() => {router.push(`/profile/${id}/friends/friendSearch`)}}>Find friends</button>
+            </div>
             }
             {/* Display friends if any*/
             
