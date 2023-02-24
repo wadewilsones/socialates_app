@@ -178,14 +178,13 @@ const Profile = () => {
             <section  className={styles.Friends}>
                 <h3 onClick = {listUserFriends}>Friends <span>{user.friends != null? user.friends.length : ''}</span></h3>
                 {user.friends.length > 0 ?
-                <div id = {styles.FriendsContainer}>
+                <div id = {styles.FriendsContainer}>{
+                    user.friends.map(friend => (<li>{friend}</li>))
+                }
+   
                     <div className = {styles.SingleFriend}>
                         <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
                         <p>Vlada Haranina</p>
-                    </div>
-                    <div className = {styles.SingleFriend}>
-                        <img src='https://cdn.pixabay.com/photo/2018/01/06/09/25/hijab-3064633_960_720.jpg'></img>
-                        <p>Suzanna Kirch</p>
                     </div>
                 </div> : 
                 <div className = {styles.noFriends}>
