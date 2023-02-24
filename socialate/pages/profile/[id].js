@@ -21,6 +21,8 @@ const Profile = () => {
     const { id } = router.query;
     
     let [showInfo, setShowInfo] = useState(false);
+    let[isLoggedUser, setisLoggedUser] = useState(true);
+
     const [user, setUser] = useState({
         first_name: "", 
         last_name:"",
@@ -45,11 +47,12 @@ const Profile = () => {
             })
             .then(res => res.json())
             .then((data) => {
+                console.log(data)
                 if(data.authorization){
                     let bDay;
                     //Convert date to other format
-                    if(data.user.dob){
-                        const date = new Date(data.user.dob);
+                    if(data.userInfo.dob){
+                        const date = new Date(data.userInfo.dob);
                         const month = new Intl.DateTimeFormat('en-US', {month:'long'}).format(date)
                         bDay = `${month} ${date.getDate()}`;
                     }
@@ -57,20 +60,28 @@ const Profile = () => {
                     //Update main information   
                     setUser((prevState) => ({
                         ...prevState,
-                        first_name: data.user.first_name, 
-                        last_name:data.user.last_name,
-                        profile_pic: data.user.profile_pic,
-                        status:data.user.status,
+                        first_name: data.userInfo.first_name, 
+                        last_name:data.userInfo.last_name,
+                        profile_pic: data.userInfo.profile_pic,
+                        status:data.userInfo.status,
                         is_Online:'True',
                         is_userProfile:'True',
-                        friends:data.user.friends,
-                        country:data.user.country,
-                        education:data.user.education,
-                        city:data.user.city,
-                        gender:data.user.gender,
+                        friends:data.userInfo.friends,
+                        country:data.userInfo.country,
+                        education:data.userInfo.education,
+                        city:data.userInfo.city,
+                        gender:data.userInfo.gender,
                         dob:bDay,
-                        marital_status:data.user.marital_status
+                        marital_status:data.userInfo.marital_status,
+                        friends:data.userFriendReqs,
                     }))
+
+                    if(data.isLoggedUser){
+                        setisLoggedUser(true);
+                    }
+                    else{
+                        setisLoggedUser(false);
+                    }
                 }
                 else{
                     router.push('/');
@@ -116,6 +127,15 @@ const Profile = () => {
         router.push(`/profile/${id}/friends/friendList`)
     }
 
+    const requestFriendPage = (e) => {
+        e.preventDefault();
+        const friendBlock = e.target;
+        const friendId = friendBlock.getAttribute('id');
+        router.push(`/profile/${friendId}`)
+        .then(() => router.reload())
+
+    }
+
     return (
 
         <div className={styles.container}>
@@ -131,7 +151,10 @@ const Profile = () => {
                     <p>{user.is_Online == "False"? "Offline" : "Online"}</p>
                 </div>
                 <h3>{user.first_name} {user.last_name}</h3>
-                <input type="text" placeholder={user.status ? user.status : "Type your status here..."} id = {styles.statusInput} onKeyPress = {HandleStatus}/>
+                <input type="text" placeholder={
+                    user.status? user.status : 
+                        isLoggedUser? "Type your status here..." : " "
+                    } id = {styles.statusInput} onKeyPress = {HandleStatus}/>
             </section>
             
             <section className={styles.ContactInfo}>
@@ -139,8 +162,12 @@ const Profile = () => {
                 <h3>Contact Info</h3>
 
                 {user != null ? 
+
                 <div className={styles.ContactInfoExists}>
-                    <button onClick={() => {router.push({pathname: `${id}/update/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button>
+                    {isLoggedUser ? 
+                    <button onClick={() => {router.push({pathname: `${id}/update/editProfile`, query: user})}}  className={styles.contactBtn} >Edit Info</button> 
+                    :  ""}
+                    
                     <ul>
                         {user.gender ? <li><TransgenderIcon className = {styles.contactIcons}></TransgenderIcon>Gender: {user.gender}</li> : ""}
                         {user.city? <li><ApartmentIcon className = {styles.contactIcons}></ApartmentIcon><span>City: {user.city}</span></li> : ''}
@@ -168,8 +195,11 @@ const Profile = () => {
                 :
       
                 <div>
+                    {isLoggedUser ? 
                 <button className={styles.contactBtn} onClick={() => {router.push({pathname: `${id}/update/editProfile`, query: id})}}>Add Contact Info</button>
+                    : ""}
                 </div>
+
 
                 }
                
@@ -178,17 +208,19 @@ const Profile = () => {
             <section  className={styles.Friends}>
                 <h3 onClick = {listUserFriends}>Friends <span>{user.friends != null? user.friends.length : ''}</span></h3>
                 {user.friends.length > 0 ?
-                <div id = {styles.FriendsContainer}>{
-                    user.friends.map(friend => (<li>{friend}</li>))
-                }
-   
-                    <div className = {styles.SingleFriend}>
-                        <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"></img>
-                        <p>Vlada Haranina</p>
-                    </div>
+
+                <div id = {styles.FriendsContainer}>
+                    {
+                    user.friends.map(friend => (
+                        <div className = {styles.SingleFriend} key = {friend.friendId} onClick = {requestFriendPage}>
+                                <img src="https://cdn.pixabay.com/photo/2017/06/24/02/56/art-2436545_960_720.jpg"  id = {friend.friendId}></img>
+                                <p>{friend.friends_name}</p>    
+                        </div>
+                    ))
+                    }
                 </div> : 
                 <div className = {styles.noFriends}>
-                    <p>You have no friends</p>
+                    {isLoggedUser ? <p>You have no friends</p> : <p>User has no friends</p>}
                     <button onClick={findFriends}>Find friends</button>
                 </div>}
             </section>
