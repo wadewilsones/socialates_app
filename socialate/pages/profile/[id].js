@@ -56,6 +56,11 @@ const Profile = () => {
                         const month = new Intl.DateTimeFormat('en-US', {month:'long'}).format(date)
                         bDay = `${month} ${date.getDate()}`;
                     }
+
+                    if(data.userInfo.profile_pic){
+                        //Transform base64 to picture
+                        //const image = Buffer.from(data.userInfo.profile_pic, 'base64');
+                    }
     
                     //Update main information   
                     setUser((prevState) => ({

@@ -2,9 +2,7 @@ import UserSchema from '../../../../../models/users_model'
 
 export default async function updateProfile(req, res){
     const { id } = req.query;
-    console.log(id)
     const userDate = req.body.userData;
-
     try{
         await UserSchema.findByIdAndUpdate(id, { 
             first_name: userDate.first_name,
@@ -14,7 +12,8 @@ export default async function updateProfile(req, res){
             country:userDate.country,
             city:userDate.city,
             dob:userDate.dob,
-            marital_status:userDate.marital_status
+            marital_status:userDate.marital_status,
+            profile_pic: userDate.profile_pic
         
         });
         res.json({'status':'Updated'});

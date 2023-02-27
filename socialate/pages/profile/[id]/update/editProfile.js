@@ -2,7 +2,9 @@ import Header from "../../../../components/header";
 import Footer from "../../../../components/footer";
 import styles from "../../../../styles/EditProfile.module.css";
 import { useEffect, useState } from "react";
+import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 export default function editProfile(){
 
@@ -12,6 +14,7 @@ export default function editProfile(){
 
     });
     const [isFemale, setGender] = useState(false);
+    const [uploadedPicture, setuploadedPicture] = useState();
 
    useEffect(() => {
 
@@ -20,30 +23,34 @@ export default function editProfile(){
         }
         else{
             //Get userData from api
-
+            const token = getCookie("token");
             fetch(`/api/profile/${id}/`, {
                 method:'GET',
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                    Authorization: `Bearer ${token}`
                 }
             })
                 .then(res => res.json())
                 .then(data => {
+                    if(!data.authorization){
+                        router.push('/')
+                    }
                     //Update userData
                     setUserData((prevState) => ({
                         ...prevState,
-                        first_name:data.user.first_name, 
-                        last_name:data.user.last_name,
-                        profile_pic: data.user.profile_pic,
-                        gender:data.user.gender,
-                        country:data.user.country,
-                        education:data.user.education,
-                        city:data.user.city,
-                        dob:data.user.dob,
-                        marital:data.user.marital,
+                        first_name:data.userInfo.first_name, 
+                        last_name:data.userInfo.last_name,
+                        profile_pic: data.userInfo.profile_pic,
+                        gender:data.userInfo.gender,
+                        country:data.userInfo.country,
+                        education:data.userInfo.education,
+                        city:data.userInfo.city,
+                        dob:data.userInfo.dob,
+                        marital:data.userInfo.marital,
                     })
                     )
-                if(data.user.gender == "Female"){
+                if(data.userInfo.gender == "Female"){
                     setGender(true)
                 }
                 })
@@ -52,15 +59,16 @@ export default function editProfile(){
    
     }, [router.isReady])
 
-    //After form was submitted the function will send data to Server
 
     const updateProfile = (e) => {
         e.preventDefault();
-        console.log(e.target.profile_pic.value);
+        //convert image to base64
+        
+
         const updatedUser = {
                 first_name: e.target.first_name.value != "" ? e.target.first_name.value : userData.first_name, 
                 last_name: e.target.last_name.value != "" ? e.target.last_name.value : userData.last_name ,
-                profile_pic: e.target.profile_pic.value != undefined ? e.target.profile_pic.value :  data.user.profile_pic,
+                profile_pic: e.target.profile_pic.value != undefined ? uploadedPicture :  data.userData.profile_pic,
                 country:e.target.country.value != ""? e.target.country.value : userData.country,
                 gender:e.target.gender.value != "" ? e.target.gender.value : userData.gender,
                 education:e.target.education.value  != "" ? e.target.education.value : userData.education,
@@ -75,7 +83,7 @@ export default function editProfile(){
         
         //Validate data code...
         // Send to DB
-        fetch(`/api/profile/${id}/updateProfile`, {
+        fetch(`/api/profile/${id}/updates/updateProfile`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -92,6 +100,18 @@ export default function editProfile(){
        
     }
 
+
+    //After form was submitted the function will send data to Server
+    const uploadFile = (file) => {
+
+        const reader = new FileReader();
+        reader.onloadend = (e) => {
+            const picData = reader.result;
+            //const  buffer = picData.split(',')[1];
+            setuploadedPicture(picData);
+        }
+        reader.readAsDataURL(file); // trigger onloadend
+    }
     //Change picture's state of source 
 
     const DisplaySelectedPicture = (e) => {
@@ -100,13 +120,14 @@ export default function editProfile(){
             ...prevState,
             profile_pic: URL.createObjectURL(e.target.files[0]), 
         }))
+        uploadFile(e.target.files[0]);
     }
 
     return (
         <div className={styles.editProfileContainer}>
         <Header></Header>
         <h1>Edit profile</h1>
-            <form onSubmit={updateProfile}>
+            <form onSubmit={updateProfile} id ="updateInfoForm">
                 <img src ={userData.profile_pic != undefined? userData.profile_pic : '/images/noImg.png'} alt='profile Picture' id ={styles.user_pic}></img>
 
                 <label htmlFor="profile_picInput" id = {styles.UpdatePictureLabel}>Update Picture

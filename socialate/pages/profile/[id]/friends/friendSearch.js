@@ -64,8 +64,7 @@ const sendFriendRequest = (e) => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
-        
+        router.reload()
     })
 }
 

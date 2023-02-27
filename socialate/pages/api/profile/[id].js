@@ -26,6 +26,7 @@ export default async function userData (req, res){
             dob:userData.dob,
             marital_status:userData.marital_status,
             is_Online:userData.is_Online,
+            profile_pic:userData.profile_pic,
         }
 
         //Add friends data to array
