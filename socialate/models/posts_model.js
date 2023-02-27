@@ -4,10 +4,9 @@ const Schema = mongoose.Schema;
 
 
 const PostsSchema = new Schema({
-    author: {type:mongoose.Types.ObjectId, required:true},
+    author: {type:Schema.Types.ObjectId, required:true},
     content: {type:String, required:true},
-    pictures: mongoose.Types.ObjectId,
-    date_created: {type:Date, required:true}
+    date_created: {type:String, required:true}
 })
 
 module.exports = mongoose.model('PostsSchema', PostsSchema);

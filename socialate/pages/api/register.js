@@ -11,7 +11,6 @@ export default async function register (req, res) {
 
     const saltRounds = 10;
     const newPassword = bcrypt.hashSync(req.body.password, saltRounds);
-    console.log(typeof newPassword);
     // Create a model for parsing it to DB
     const userData = {
         username: req.body.username,

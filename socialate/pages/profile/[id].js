@@ -13,7 +13,7 @@ import CakeIcon from '@mui/icons-material/Cake';
 import ChurchIcon from '@mui/icons-material/Church';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 import { getCookie } from 'cookies-next';
-
+import CreatePost  from '../../components/createPost';
 
 const Profile = () => {
 
@@ -230,28 +230,11 @@ const Profile = () => {
                 </div>}
             </section>
 
-    {/* PHOTO INFO SECTION */}
-            <section  className={styles.Photos}>
-                <h3>Photos <span>12</span></h3>
-                <div>
-                    <img src='https://cdn.pixabay.com/photo/2022/10/01/22/38/sugarloaf-rock-7492389_960_720.jpg'></img>
-                    <img src='https://cdn.pixabay.com/photo/2022/10/09/04/28/deer-7508187_960_720.jpg'></img>
-                    <img src='https://cdn.pixabay.com/photo/2022/09/15/09/59/water-7456116_960_720.jpg'></img>
-                </div>
-            </section>
 
-            <section className={styles.CreatePost}>
-            <h3>Create a Post</h3>
-                <div>
-                    <input type="text" placeholder="Got something to say?"></input>
-                    <label htmlFor="uploadImage">
-                        <input type="file" id='uploadImage' hidden/>
-                        <img src='/images/uploadPic.svg' />
-                    </label>
-                </div>
 
-            </section>
+
     {/* POST  SECTION */}
+            <CreatePost></CreatePost>
             <section className={styles.postsWall}>
 
                 <div className = {styles.singlePost}>

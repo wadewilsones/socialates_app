@@ -107,7 +107,6 @@ export default function editProfile(){
         const reader = new FileReader();
         reader.onloadend = (e) => {
             const picData = reader.result;
-            //const  buffer = picData.split(',')[1];
             setuploadedPicture(picData);
         }
         reader.readAsDataURL(file); // trigger onloadend
